@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Academy DI</string>
+    <string name="open_details">Open Details</string>
+    <string name="details_fragment">Details Fragment</string>
 </resources>
