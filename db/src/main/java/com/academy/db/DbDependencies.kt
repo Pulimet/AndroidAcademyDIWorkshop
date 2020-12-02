@@ -11,5 +11,5 @@ object DbDependencies {
         return roomDb
     }
 
-    private fun getMovieDao(context: Context): MovieDao = getRoomDb(context).movieDao()
+    fun getMovieDao(context: Context): MovieDao = getRoomDb(context).movieDao()
 }
