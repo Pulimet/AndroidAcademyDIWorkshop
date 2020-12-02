@@ -14,6 +14,10 @@ class MovieHolder(override val containerView: View, private val viewModel: Navig
     LayoutContainer,
     View.OnClickListener {
 
+    init {
+        itemView.setOnClickListener(this)
+    }
+
     private var movie: Movie? = null
 
     fun onBindViewHolder(movie: Movie) {

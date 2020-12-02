@@ -39,7 +39,7 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
     private fun observeViewModel() {
         viewModel.getMovies().observe(viewLifecycleOwner) {
             homeAdapter?.setItems(it)
-            swipeRefreshLayout.isRefreshing = false
+            if (it.isNotEmpty()) swipeRefreshLayout.isRefreshing = false
         }
     }
 }

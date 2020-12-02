@@ -11,11 +11,7 @@ class NavigationViewModel: ViewModel() {
     private var navEvent = SingleLiveEvent<NavDirections>()
     fun getNavEvent(): LiveData<NavDirections> = navEvent
 
-    fun onBtnOpenDetailsClick() {
-        navEvent.value = HomeFragmentDirections.actionHomeFragmentToDetailsFragment()
-    }
-
     fun onUserMovieClick(movie: Movie) {
-        // TODO Change fragment to details fragment and pass the movie
+        navEvent.value = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movie)
     }
 }
