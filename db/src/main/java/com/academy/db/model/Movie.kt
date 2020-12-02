@@ -8,8 +8,7 @@ data class Movie(
     @PrimaryKey
     val id: Int,
     val title: String,
-    val posterImg: String?,
-    val backImg: String?,
+    val posterUrl: String?,
     val overview: String,
     val date: String,
     val vote: Double

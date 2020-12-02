@@ -2,9 +2,11 @@ package com.academy.di
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 
 class App : Application() {
     init {
+        Log.e("Academy", "App created")
         instance = this
     }
 

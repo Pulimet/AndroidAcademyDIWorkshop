@@ -17,6 +17,10 @@ class MoviesRepo : CoroutineScope {
         return Dependencies.getMovieDao().getMovies()
     }
 
+    fun fetchFreshMovies() {
+        getFreshMoviesAndSaveThemToDBAsync()
+    }
+
     private fun getFreshMoviesAndSaveThemToDBAsync() {
         launch {
             // Fetch fresh list from TMDB API
