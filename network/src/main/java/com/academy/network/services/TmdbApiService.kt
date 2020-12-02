@@ -1,4 +1,4 @@
-package com.academy.network
+package com.academy.network.services
 
 import com.academy.network.model.Tmdb
 import retrofit2.http.GET
