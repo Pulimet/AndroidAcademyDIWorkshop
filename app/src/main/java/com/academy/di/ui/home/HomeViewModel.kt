@@ -6,4 +6,8 @@ import com.academy.di.di.Dependencies
 
 class HomeViewModel : ViewModel() {
     fun getMovies() = Dependencies.getMoviesRepo().getMovies().asLiveData()
+
+    override fun onCleared() {
+        Dependencies.getMoviesRepo().onCleared()
+    }
 }

@@ -37,6 +37,7 @@ android {
 dependencies {
     // Modules dependencies
     implementation project(path: ':db')
+    implementation project(path: ':network')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

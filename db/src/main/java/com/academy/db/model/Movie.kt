@@ -1,4 +1,4 @@
-package com.academy.db
+package com.academy.db.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
