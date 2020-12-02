@@ -36,7 +36,6 @@ android {
 
 dependencies {
     // Modules dependencies
-    implementation project(path: ':network')
     implementation project(path: ':db')
 
     // Kotlin
