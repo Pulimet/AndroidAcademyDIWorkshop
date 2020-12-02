@@ -5,16 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.academy.db.model.Movie
 import com.academy.di.R
-import com.academy.di.ui.navigation.NavigationViewModel
 
-class HomeAdapter(private val viewModel: NavigationViewModel) :
+class HomeAdapter(private val listener: OnMovieClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var data = listOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return MovieHolder(v, viewModel)
+        return MovieHolder(v, listener)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

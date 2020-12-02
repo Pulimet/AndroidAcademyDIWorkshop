@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
 import com.academy.db.model.Movie
-import com.academy.di.ui.navigation.NavigationViewModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_movie.*
 
-class MovieHolder(override val containerView: View, private val viewModel: NavigationViewModel) :
+class MovieHolder(override val containerView: View, private val listener: OnMovieClickListener) :
     RecyclerView.ViewHolder(containerView),
     LayoutContainer,
     View.OnClickListener {
@@ -39,7 +38,7 @@ class MovieHolder(override val containerView: View, private val viewModel: Navig
             val extras = FragmentNavigatorExtras(
                 imgMovie to "image_${movie?.id}"
             )
-            movie?.let { viewModel.onUserMovieClick(it, extras) }
+            movie?.let { listener.onClick(it, extras) }
         }
     }
 }
