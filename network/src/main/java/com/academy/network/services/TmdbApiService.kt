@@ -1,6 +1,6 @@
 package com.academy.network.services
 
-import com.academy.network.model.Tmdb
+import com.academy.network.model.TmdbNet
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.text.SimpleDateFormat
@@ -20,5 +20,5 @@ interface TmdbApiService {
         @Query("sort_by") sortBy: String = "release_date.desc",
         @Query("release_date.lte") todayDate: String = getTodayDate(),
         @Query("vote_count.gte") minNumOfVotes: Int = 2
-    ): Tmdb.Discover
+    ): TmdbNet.Discover
 }

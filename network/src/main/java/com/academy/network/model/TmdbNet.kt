@@ -2,7 +2,7 @@ package com.academy.network.model
 
 import com.google.gson.annotations.SerializedName
 
-object Tmdb {
+object TmdbNet {
     data class Discover(
         val page: Int,
         @SerializedName("total_results") val totalResults: Int,
