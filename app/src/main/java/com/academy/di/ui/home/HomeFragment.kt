@@ -1,6 +1,7 @@
 package com.academy.di.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -24,10 +25,18 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
     }
 
     private fun setRecyclerView() {
+        Log.w("Academy", "setRecyclerView")
         homeRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
             homeAdapter = HomeAdapter(navViewModel)
             adapter = homeAdapter
+
+            // Solves return transition animation
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
     }
 

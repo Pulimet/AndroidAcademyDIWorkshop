@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main){
         super.onStart()
         navController = findNavController(R.id.nav_host_fragment)
         navViewModel.getNavEvent().observe(this) {
-            navController.navigate(it)
+            navController.navigate(it.first, it.second)
         }
     }
 }
