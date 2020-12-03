@@ -38,7 +38,7 @@ class MovieHolder(override val containerView: View, private val listener: OnMovi
             val extras = FragmentNavigatorExtras(
                 imgMovie to "image_${movie?.id}"
             )
-            movie?.let { listener.onClick(it, extras) }
+            movie?.let { listener.onClick(it, extras, adapterPosition) }
         }
     }
 }

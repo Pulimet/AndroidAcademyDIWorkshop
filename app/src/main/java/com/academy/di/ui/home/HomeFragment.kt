@@ -6,12 +6,16 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.academy.db.model.Movie
 import com.academy.di.R
 import com.academy.di.ui.navigation.NavigationViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
     private val viewModel: HomeViewModel by viewModels()
@@ -33,11 +37,27 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
             homeAdapter = HomeAdapter(this@HomeFragment)
             adapter = homeAdapter
 
+            // Scrolls to position of selected item on going back to the list
+            scrollToPreviouslyClickedItem(layoutManager)
+
             // Solves return transition animation
-            postponeEnterTransition()
-            viewTreeObserver.addOnPreDrawListener {
-                startPostponedEnterTransition()
-                true
+            postponeAndStartTransitionAnimation()
+        }
+    }
+
+    private fun RecyclerView.postponeAndStartTransitionAnimation() {
+        postponeEnterTransition()
+        viewTreeObserver.addOnPreDrawListener {
+            startPostponedEnterTransition()
+            true
+        }
+    }
+
+    private fun scrollToPreviouslyClickedItem(layoutManager: RecyclerView.LayoutManager?) {
+        lifecycleScope.launch {
+            if (viewModel.clickedItemPosition > 4) {
+                delay(20) // Without this delay scrollToPosition function not working
+                layoutManager?.scrollToPosition(viewModel.clickedItemPosition)
             }
         }
     }
@@ -55,7 +75,8 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
     }
 
     //OnMovieClickListener
-    override fun onClick(movie: Movie, extras: FragmentNavigator.Extras) {
-       navViewModel.onUserMovieClick(movie, extras)
+    override fun onClick(movie: Movie, extras: FragmentNavigator.Extras, position: Int) {
+        viewModel.saveClickedItemPosition(position)
+        navViewModel.onUserMovieClick(movie, extras)
     }
 }
