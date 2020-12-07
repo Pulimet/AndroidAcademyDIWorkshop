@@ -6,6 +6,7 @@ import com.academy.db.model.MovieModelConverter
 import com.academy.di.di.Dependencies
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlin.coroutines.CoroutineContext
 
 class MoviesRepo : CoroutineScope {
