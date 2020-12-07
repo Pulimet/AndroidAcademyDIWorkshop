@@ -25,6 +25,7 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
     private val navViewModel: NavigationViewModel by activityViewModels()
 
     private var homeAdapter: HomeAdapter? = null
+    private var gridLayoutManager: GridLayoutManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +42,8 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
     private fun setRecyclerView() {
         Log.w("Academy", "setRecyclerView")
         homeRecyclerView.apply {
-            layoutManager = GridLayoutManager(context, 2)
-            homeAdapter = HomeAdapter(this@HomeFragment)
-            adapter = homeAdapter
+            layoutManager = GridLayoutManager(context, 2).apply { gridLayoutManager = this }
+            adapter = HomeAdapter(this@HomeFragment).apply { homeAdapter = this }
 
             // Scrolls to position of selected item on going back to the list
             scrollToPreviouslyClickedItem(layoutManager)
@@ -63,9 +63,9 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
 
     private fun scrollToPreviouslyClickedItem(layoutManager: RecyclerView.LayoutManager?) {
         lifecycleScope.launch {
-            if (viewModel.clickedItemPosition > 4) {
+            if (viewModel.savedItemPosition > 4) {
                 delay(50) // Without this delay scrollToPosition function not working
-                layoutManager?.scrollToPosition(viewModel.clickedItemPosition)
+                layoutManager?.scrollToPosition(viewModel.savedItemPosition)
             }
         }
     }
@@ -97,6 +97,7 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
             R.id.action_settings -> {
+                viewModel.saveFirstVisiblePosition(gridLayoutManager?.findFirstVisibleItemPosition())
                 navViewModel.onSettingsClick()
                 true
             }
