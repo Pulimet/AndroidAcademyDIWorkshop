@@ -9,20 +9,24 @@ import com.academy.di.di.modules.MoviesModule
 import com.academy.di.di.modules.NetworkModule
 
 class App : Application() {
+    companion object {
+        lateinit var component: AppComponent
+    }
+
     init {
         Log.e("Academy", "App created")
     }
 
     override fun onCreate() {
         super.onCreate()
+        buildDaggerComponent()
+    }
+
+    private fun buildDaggerComponent() {
         component = DaggerAppComponent.builder()
             .moviesModule(MoviesModule())
             .dbModule(DbModule(applicationContext))
             .networkModule(NetworkModule())
             .build()
-    }
-
-    companion object {
-        lateinit var component: AppComponent
     }
 }
