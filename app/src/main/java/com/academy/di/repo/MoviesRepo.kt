@@ -1,23 +1,29 @@
 package com.academy.di.repo
 
 import android.util.Log
+import com.academy.db.MovieDao
 import com.academy.db.model.Movie
 import com.academy.db.model.MovieModelConverter
+import com.academy.di.App
 import com.academy.di.di.Dependencies
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class MoviesRepo : CoroutineScope {
+    @Inject lateinit var movieDao: MovieDao
+
     init {
         Log.w("Academy", "MoviesRepo init")
+        App.component.inject(this)
     }
 
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
 
     // Returns Flow with list of movies from database
     fun getMovies(): Flow<List<Movie>> {
-        return Dependencies.getMovieDao().getMovies()
+        return movieDao.getMovies()
     }
 
     fun fetchFreshMovies() {
@@ -31,7 +37,7 @@ class MoviesRepo : CoroutineScope {
             // Convert from network to database model
             val convertedList: List<Movie> = MovieModelConverter.convert(movies)
             // Save converted list to the database
-            Dependencies.getMovieDao().insertAll(convertedList)
+            movieDao.insertAll(convertedList)
         }
     }
 
