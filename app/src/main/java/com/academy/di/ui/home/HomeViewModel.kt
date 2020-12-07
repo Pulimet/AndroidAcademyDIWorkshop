@@ -16,7 +16,7 @@ class HomeViewModel : ViewModel() {
         App.component.inject(this)
     }
 
-    var clickedItemPosition = 0
+    var savedItemPosition = 0
 
     fun getMovies() = moviesRepo.getMovies().asLiveData()
 
@@ -30,7 +30,11 @@ class HomeViewModel : ViewModel() {
     }
 
     fun saveClickedItemPosition(position: Int?) {
-        clickedItemPosition = position ?: 0
+        savedItemPosition = position ?: 0
+    }
+
+    fun saveFirstVisiblePosition(position: Int?) {
+        savedItemPosition = position ?: 0
     }
 
 }

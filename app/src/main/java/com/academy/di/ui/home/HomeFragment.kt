@@ -2,6 +2,9 @@ package com.academy.di.ui.home
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,6 +25,12 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
     private val navViewModel: NavigationViewModel by activityViewModels()
 
     private var homeAdapter: HomeAdapter? = null
+    private var gridLayoutManager: GridLayoutManager? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,9 +42,8 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
     private fun setRecyclerView() {
         Log.w("Academy", "setRecyclerView")
         homeRecyclerView.apply {
-            layoutManager = GridLayoutManager(context, 2)
-            homeAdapter = HomeAdapter(this@HomeFragment)
-            adapter = homeAdapter
+            layoutManager = GridLayoutManager(context, 2).apply { gridLayoutManager = this }
+            adapter = HomeAdapter(this@HomeFragment).apply { homeAdapter = this }
 
             // Scrolls to position of selected item on going back to the list
             scrollToPreviouslyClickedItem(layoutManager)
@@ -55,9 +63,9 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
 
     private fun scrollToPreviouslyClickedItem(layoutManager: RecyclerView.LayoutManager?) {
         lifecycleScope.launch {
-            if (viewModel.clickedItemPosition > 4) {
+            if (viewModel.savedItemPosition > 4) {
                 delay(50) // Without this delay scrollToPosition function not working
-                layoutManager?.scrollToPosition(viewModel.clickedItemPosition)
+                layoutManager?.scrollToPosition(viewModel.savedItemPosition)
             }
         }
     }
@@ -74,9 +82,26 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
         }
     }
 
-    //OnMovieClickListener
+    // OnMovieClickListener
     override fun onClick(movie: Movie, extras: FragmentNavigator.Extras, position: Int) {
         viewModel.saveClickedItemPosition(position)
         navViewModel.onUserMovieClick(movie, extras)
     }
+
+    // Menu
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.action_settings -> {
+                viewModel.saveFirstVisiblePosition(gridLayoutManager?.findFirstVisibleItemPosition())
+                navViewModel.onSettingsClick()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
 }
