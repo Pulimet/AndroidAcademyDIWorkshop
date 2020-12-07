@@ -2,6 +2,9 @@ package com.academy.di.ui.home
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,6 +25,11 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
     private val navViewModel: NavigationViewModel by activityViewModels()
 
     private var homeAdapter: HomeAdapter? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,9 +82,25 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
         }
     }
 
-    //OnMovieClickListener
+    // OnMovieClickListener
     override fun onClick(movie: Movie, extras: FragmentNavigator.Extras, position: Int) {
         viewModel.saveClickedItemPosition(position)
         navViewModel.onUserMovieClick(movie, extras)
     }
+
+    // Menu
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.action_settings -> {
+                navViewModel.onSettingsClick()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
 }
