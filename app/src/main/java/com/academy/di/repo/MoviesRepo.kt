@@ -16,8 +16,9 @@ class MoviesRepo : CoroutineScope {
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
 
     // Returns Flow with list of movies from database
-    fun getMovies(): Flow<List<Movie>> {
-        return Dependencies.getMovieDao().getMovies()
+    fun getMovies(): Flow<List<Movie>> = Dependencies.getMovieDao().getMovies().map {
+        if (it.isEmpty()) fetchFreshMovies()
+        it
     }
 
     fun fetchFreshMovies() {
