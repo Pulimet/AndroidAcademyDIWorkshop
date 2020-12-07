@@ -4,7 +4,9 @@ import android.app.Application
 import android.util.Log
 import com.academy.di.di.AppComponent
 import com.academy.di.di.DaggerAppComponent
-import com.academy.di.di.DbModule
+import com.academy.di.di.modules.DbModule
+import com.academy.di.di.modules.MoviesModule
+import com.academy.di.di.modules.NetworkModule
 
 class App : Application() {
     init {
@@ -14,7 +16,9 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         component = DaggerAppComponent.builder()
+            .moviesModule(MoviesModule())
             .dbModule(DbModule(applicationContext))
+            .networkModule(NetworkModule())
             .build()
     }
 
