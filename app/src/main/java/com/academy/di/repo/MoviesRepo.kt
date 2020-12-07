@@ -7,6 +7,8 @@ import com.academy.db.model.MovieModelConverter
 import com.academy.di.App
 import com.academy.network.services.TmdbApiService
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -25,7 +27,10 @@ class MoviesRepo : CoroutineScope {
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
 
     // Returns Flow with list of movies from database
-    fun getMovies() = movieDao.getMovies()
+    fun getMovies(): Flow<List<Movie>> = movieDao.getMovies().map {
+        if (it.isEmpty()) fetchFreshMovies()
+        it
+    }
 
     fun fetchFreshMovies() {
         getFreshMoviesAndSaveThemToDBAsync()

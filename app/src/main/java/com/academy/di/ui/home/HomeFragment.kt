@@ -56,7 +56,7 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
     private fun scrollToPreviouslyClickedItem(layoutManager: RecyclerView.LayoutManager?) {
         lifecycleScope.launch {
             if (viewModel.clickedItemPosition > 4) {
-                delay(20) // Without this delay scrollToPosition function not working
+                delay(50) // Without this delay scrollToPosition function not working
                 layoutManager?.scrollToPosition(viewModel.clickedItemPosition)
             }
         }

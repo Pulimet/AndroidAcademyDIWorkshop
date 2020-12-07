@@ -2,10 +2,9 @@ package com.academy.di.ui.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.asLiveData
 import com.academy.di.App
 import com.academy.di.repo.MoviesRepo
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class HomeViewModel : ViewModel() {
@@ -19,12 +18,7 @@ class HomeViewModel : ViewModel() {
 
     var clickedItemPosition = 0
 
-    fun getMovies() = liveData {
-        moviesRepo.getMovies().collect {
-            if (it.isEmpty()) moviesRepo.fetchFreshMovies()
-            emit(it)
-        }
-    }
+    fun getMovies() = moviesRepo.getMovies().asLiveData()
 
     fun onUserRefreshedMain() {
         moviesRepo.fetchFreshMovies()
