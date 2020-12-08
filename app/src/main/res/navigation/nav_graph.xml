@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.academy.di.SettingsFragment"
+        android:name="com.academy.di.ui.settings.SettingsFragment"
         android:label="@string/fragment_title_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
