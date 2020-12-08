@@ -4,15 +4,17 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.academy.di.repo.SettingsRepo
 
-class SettingsViewModel : ViewModel() {
+class SettingsViewModel(private val settingsRepo: SettingsRepo) : ViewModel() {
     init {
         Log.w("Academy", "SettingsViewModel init")
     }
 
-    private val settingsRepo = SettingsRepo()
-
     override fun onCleared() {
         Log.w("Academy", "SettingsViewModel onCleared")
         settingsRepo.onCleared()
+    }
+
+    fun kuku() {
+        Log.d("Academy", "kuku")
     }
 }

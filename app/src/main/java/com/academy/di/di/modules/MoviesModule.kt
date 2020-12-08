@@ -6,7 +6,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class MoviesModule() {
+class MoviesModule {
     @Provides
     @Singleton
     fun getMoviesRepo() = MoviesRepo()
