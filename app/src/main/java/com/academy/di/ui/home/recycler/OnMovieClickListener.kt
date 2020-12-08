@@ -1,4 +1,4 @@
-package com.academy.di.ui.home
+package com.academy.di.ui.home.recycler
 
 import androidx.navigation.fragment.FragmentNavigator
 import com.academy.db.model.Movie

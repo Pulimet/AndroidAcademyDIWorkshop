@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.academy.db.model.Movie
 import com.academy.di.R
+import com.academy.di.ui.home.recycler.HomeAdapter
+import com.academy.di.ui.home.recycler.OnMovieClickListener
 import com.academy.di.ui.navigation.NavigationViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.coroutines.delay
