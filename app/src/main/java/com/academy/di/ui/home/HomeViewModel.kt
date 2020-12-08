@@ -7,13 +7,9 @@ import com.academy.di.App
 import com.academy.di.repo.MoviesRepo
 import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
-    @Inject
-    lateinit var moviesRepo: MoviesRepo
-
+class HomeViewModel(private val moviesRepo: MoviesRepo) : ViewModel() {
     init {
         Log.w("Academy", "HomeViewModel init")
-        App.component.inject(this)
     }
 
     var savedItemPosition = 0

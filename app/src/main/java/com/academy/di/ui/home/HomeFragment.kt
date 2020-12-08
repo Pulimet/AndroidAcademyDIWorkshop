@@ -14,14 +14,19 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.academy.db.model.Movie
+import com.academy.di.App
 import com.academy.di.R
 import com.academy.di.ui.navigation.NavigationViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
-    private val viewModel: HomeViewModel by viewModels()
+    @Inject
+    internal lateinit var homeViewModelFactory: HomeViewModelFactory
+    private val viewModel: HomeViewModel by viewModels{homeViewModelFactory}
+
     private val navViewModel: NavigationViewModel by activityViewModels()
 
     private var homeAdapter: HomeAdapter? = null
@@ -29,6 +34,7 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        App.component.inject(this)
         setHasOptionsMenu(true)
     }
 
