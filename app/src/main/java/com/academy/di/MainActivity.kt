@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController = findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
         navViewModel.getNavEvent().observe(this) {
-            navController.navigate(it.first, it.second)
+            navController.navigate(it.navDirections, it.extras)
         }
     }
 
