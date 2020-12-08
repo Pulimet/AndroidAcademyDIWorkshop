@@ -1,6 +1,8 @@
 package com.academy.di.di.modules
 
+import com.academy.db.MovieDao
 import com.academy.di.repo.MoviesRepo
+import com.academy.network.services.TmdbApiService
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -9,5 +11,6 @@ import javax.inject.Singleton
 class MoviesModule {
     @Provides
     @Singleton
-    fun getMoviesRepo() = MoviesRepo()
+    fun getMoviesRepo(movieDao: MovieDao, tmdbApiService: TmdbApiService) =
+        MoviesRepo(movieDao, tmdbApiService)
 }

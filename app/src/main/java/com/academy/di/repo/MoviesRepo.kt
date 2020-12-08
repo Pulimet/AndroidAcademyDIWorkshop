@@ -12,12 +12,10 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class MoviesRepo : CoroutineScope {
-    @Inject
-    lateinit var movieDao: MovieDao
-
-    @Inject
-    lateinit var tmdbApiService: TmdbApiService
+class MoviesRepo @Inject constructor(
+    private val movieDao: MovieDao,
+    private val tmdbApiService: TmdbApiService
+) : CoroutineScope {
 
     init {
         Log.w("Academy", "MoviesRepo init")
