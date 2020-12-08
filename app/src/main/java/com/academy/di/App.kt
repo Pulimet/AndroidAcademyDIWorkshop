@@ -7,6 +7,7 @@ import com.academy.di.di.DaggerAppComponent
 import com.academy.di.di.modules.DbModule
 import com.academy.di.di.modules.MoviesModule
 import com.academy.di.di.modules.NetworkModule
+import com.academy.di.di.modules.SettingsModule
 
 class App : Application() {
     companion object {
@@ -27,6 +28,7 @@ class App : Application() {
             .moviesModule(MoviesModule())
             .dbModule(DbModule(applicationContext))
             .networkModule(NetworkModule())
+            .settingsModule(SettingsModule())
             .build()
     }
 }
