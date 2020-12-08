@@ -14,8 +14,8 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.academy.db.model.Movie
-import com.academy.di.App
 import com.academy.di.R
+import com.academy.di.di.Injector
 import com.academy.di.ui.home.recycler.HomeAdapter
 import com.academy.di.ui.home.recycler.OnMovieClickListener
 import com.academy.di.ui.navigation.NavigationViewModel
@@ -36,7 +36,7 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.component.inject(this)
+        Injector.appComponent.inject(this)
         setHasOptionsMenu(true)
     }
 

@@ -1,4 +1,4 @@
-package com.academy.di.di
+package com.academy.di.di.components
 
 import com.academy.di.di.modules.DbModule
 import com.academy.di.di.modules.MoviesModule
@@ -11,10 +11,11 @@ import com.academy.di.ui.settings.SettingsFragment
 import dagger.Component
 import javax.inject.Singleton
 
-@Component(modules = [DbModule::class, NetworkModule::class, MoviesModule::class, SettingsModule::class])
+@Component(modules = [DbModule::class, NetworkModule::class, MoviesModule::class])
 @Singleton
 interface AppComponent {
+    fun addSettingsSubComponent(module: SettingsModule): SettingsComponent
+
     fun inject(moviesRepo: MoviesRepo)
     fun inject(homeFragment: HomeFragment)
-    fun inject(settingsFragment: SettingsFragment)
 }

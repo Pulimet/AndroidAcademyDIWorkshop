@@ -1,11 +1,10 @@
 package com.academy.di.ui.settings
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.academy.di.App
 import com.academy.di.R
+import com.academy.di.di.Injector
 import javax.inject.Inject
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
@@ -15,7 +14,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.component.inject(this)
+        Injector.getSettingsComponent().inject(this)
         viewModel.kuku()
     }
 }

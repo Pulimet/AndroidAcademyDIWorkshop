@@ -2,6 +2,7 @@ package com.academy.di.ui.settings
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.academy.di.di.Injector
 import com.academy.di.repo.SettingsRepo
 
 class SettingsViewModel(private val settingsRepo: SettingsRepo) : ViewModel() {
@@ -12,6 +13,7 @@ class SettingsViewModel(private val settingsRepo: SettingsRepo) : ViewModel() {
     override fun onCleared() {
         Log.w("Academy", "SettingsViewModel onCleared")
         settingsRepo.onCleared()
+        Injector.clearSettingsComponent()
     }
 
     fun kuku() {

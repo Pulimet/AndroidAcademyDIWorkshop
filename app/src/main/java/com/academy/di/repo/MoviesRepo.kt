@@ -5,6 +5,7 @@ import com.academy.db.MovieDao
 import com.academy.db.model.Movie
 import com.academy.db.model.MovieModelConverter
 import com.academy.di.App
+import com.academy.di.di.Injector
 import com.academy.network.services.TmdbApiService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +20,7 @@ class MoviesRepo @Inject constructor(
 
     init {
         Log.w("Academy", "MoviesRepo init")
-        App.component.inject(this)
+        Injector.appComponent.inject(this)
     }
 
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
