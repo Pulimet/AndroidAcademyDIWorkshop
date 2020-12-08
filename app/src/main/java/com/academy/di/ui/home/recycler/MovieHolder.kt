@@ -1,4 +1,4 @@
-package com.academy.di.ui.home
+package com.academy.di.ui.home.recycler
 
 import android.view.View
 import androidx.core.view.ViewCompat
