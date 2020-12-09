@@ -24,22 +24,26 @@ class MoviesRepo : CoroutineScope {
 
     // Returns Flow with list of movies from database
     fun getMovies(): Flow<List<Movie>> = Dependencies.getMovieDao().getMovies().map {
+        onMoviesFlowCollection(it)
+        it
+    }
+
+    private suspend fun onMoviesFlowCollection(it: List<Movie>) {
         val minNumOfVotes = getTempMinValue().first()
         if (it.isEmpty() || minNumOfVotes != tempMinNumOfVotes) {
             tempMinNumOfVotes = minNumOfVotes
             fetchFreshMovies()
         }
-        it
     }
 
     fun fetchFreshMovies() {
-        getFreshMoviesAndSaveThemToDBAsync(tempMinNumOfVotes)
+        getFreshMoviesAndSaveThemToDBAsync()
     }
 
-    private fun getFreshMoviesAndSaveThemToDBAsync(minNumOfVotes: Int) {
+    private fun getFreshMoviesAndSaveThemToDBAsync() {
         launch {
             // Fetch fresh list from TMDB API
-            val movies = Dependencies.getApiServices().getMovies(minNumOfVotes = minNumOfVotes)
+            val movies = Dependencies.getApiServices().getMovies(minNumOfVotes = tempMinNumOfVotes)
             // Convert from network to database model
             val convertedList: List<Movie> = MovieModelConverter.convert(movies)
             // Save converted list to the database
