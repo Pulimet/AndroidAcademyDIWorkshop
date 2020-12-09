@@ -5,11 +5,27 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.academy.di.R
+import kotlinx.android.synthetic.main.fragment_settings.*
 
-class SettingsFragment : Fragment(R.layout.fragment_settings) {
+class SettingsFragment : Fragment(R.layout.fragment_settings), View.OnClickListener {
     private val viewModel: SettingsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.minVotesLiveData.observe(viewLifecycleOwner) {
+            tvMinVotesValue.text = it.toString()
+        }
+
+        btnMinus.setOnClickListener(this)
+        btnPlus.setOnClickListener(this)
+    }
+
+    // View.OnClickListener
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.btnMinus -> viewModel.onBtnMinusClick()
+            R.id.btnPlus -> viewModel.onBtnPlusClick()
+        }
     }
 }
