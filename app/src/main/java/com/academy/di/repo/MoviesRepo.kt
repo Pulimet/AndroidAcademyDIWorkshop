@@ -1,10 +1,11 @@
 package com.academy.di.repo
 
 import android.util.Log
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.academy.db.MovieDao
 import com.academy.db.model.Movie
 import com.academy.db.model.MovieModelConverter
-import com.academy.di.App
 import com.academy.di.di.Injector
 import com.academy.network.services.TmdbApiService
 import kotlinx.coroutines.*
@@ -16,7 +17,8 @@ import kotlin.coroutines.CoroutineContext
 
 class MoviesRepo @Inject constructor(
     private val movieDao: MovieDao,
-    private val tmdbApiService: TmdbApiService
+    private val tmdbApiService: TmdbApiService,
+    private val dataStore: DataStore<Preferences>
 ) : CoroutineScope {
 
     init {
@@ -27,7 +29,7 @@ class MoviesRepo @Inject constructor(
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
     private var tempMinNumOfVotes = 0
 
-    private fun getTempMinValue() = Dependencies.dataStore.data.map { preferences ->
+    private fun getTempMinValue() = dataStore.data.map { preferences ->
         preferences[SettingsRepo.KEY_MIN_VOTES] ?: 2
     }
 

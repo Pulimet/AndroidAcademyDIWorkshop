@@ -13,8 +13,6 @@ class SettingsViewModel(private val settingsRepo: SettingsRepo) : ViewModel() {
         Log.w("Academy", "SettingsViewModel init")
     }
 
-    private val settingsRepo = SettingsRepo()
-
     val minVotesLiveData = settingsRepo.getMinVotes.asLiveData()
 
     fun onBtnMinusClick() {
