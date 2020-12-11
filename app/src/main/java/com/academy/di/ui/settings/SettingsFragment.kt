@@ -6,8 +6,9 @@ import androidx.fragment.app.viewModels
 import com.academy.di.R
 import com.academy.di.di.Injector
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_settings.*
 
-class SettingsFragment : Fragment(R.layout.fragment_settings) {
+class SettingsFragment : Fragment(R.layout.fragment_settings), View.OnClickListener {
     @Inject
     internal lateinit var settingsViewModelFactory: SettingsViewModelFactory
     private val viewModel: SettingsViewModel by viewModels { settingsViewModelFactory }
@@ -15,6 +16,24 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Injector.getSettingsComponent().inject(this)
-        viewModel.kuku()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.minVotesLiveData.observe(viewLifecycleOwner) {
+            tvMinVotesValue.text = it.toString()
+        }
+
+        btnMinus.setOnClickListener(this)
+        btnPlus.setOnClickListener(this)
+    }
+
+    // View.OnClickListener
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.btnMinus -> viewModel.onBtnMinusClick()
+            R.id.btnPlus -> viewModel.onBtnPlusClick()
+        }
     }
 }

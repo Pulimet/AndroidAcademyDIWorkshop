@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Academy DI</string>
+
+    <!-- Images Descriptions -->
     <string name="desc_movie_image">Movie image</string>
 
     <!-- Menu -->
@@ -9,4 +11,13 @@
     <string name="fragment_title_home">DI Workshop - Home</string>
     <string name="fragment_title_details">Movie Details</string>
     <string name="fragment_title_settings">Settings</string>
+
+    <!-- Settings Fragment-->
+    <string name="minimum_votes">Minimum votes:</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+
+    <!-- Unsorted -->
+    <string name="fake_string_res">fake</string>
+
 </resources>
