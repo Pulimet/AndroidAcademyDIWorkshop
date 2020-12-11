@@ -17,9 +17,14 @@ class MoviesRepo : CoroutineScope {
 
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
     private var tempMinNumOfVotes = 0
+    private var tempMinRating = 0
 
-    private fun getTempMinValue() = Dependencies.dataStore.data.map { preferences ->
+    private fun getTempMinValue() = Dependencies.dataStoreMinVotes.data.map { preferences ->
         preferences[SettingsRepo.KEY_MIN_VOTES] ?: 2
+    }
+
+    private fun getTempMinRating() = Dependencies.dataStoreMinRating.data.map { preferences ->
+        preferences[SettingsRepo.KEY_MIN_RATING] ?: 2
     }
 
     // Returns Flow with list of movies from database
@@ -29,24 +34,29 @@ class MoviesRepo : CoroutineScope {
     }
 
     private suspend fun onMoviesFlowCollection(it: List<Movie>) {
+        Log.d("Academy", "onMoviesFlowCollection, size: ${it.size}")
         val minNumOfVotes = getTempMinValue().first()
-        if (it.isEmpty() || minNumOfVotes != tempMinNumOfVotes) {
+        val minRating = getTempMinRating().first()
+        if (minNumOfVotes != tempMinNumOfVotes || minRating != tempMinRating) {
             tempMinNumOfVotes = minNumOfVotes
+            tempMinRating = minRating
             fetchFreshMovies()
         }
     }
 
     fun fetchFreshMovies() {
+        Log.d("Academy", "fetchFreshMovies")
         getFreshMoviesAndSaveThemToDBAsync()
     }
 
     private fun getFreshMoviesAndSaveThemToDBAsync() {
         launch {
             // Fetch fresh list from TMDB API
-            val movies = Dependencies.getApiServices().getMovies(minNumOfVotes = tempMinNumOfVotes)
+            val movies = Dependencies.getApiServices().getMovies(minNumOfVotes = tempMinNumOfVotes, minRating = tempMinRating)
             // Convert from network to database model
             val convertedList: List<Movie> = MovieModelConverter.convert(movies)
             // Save converted list to the database
+            Dependencies.getMovieDao().deleteAll()
             Dependencies.getMovieDao().insertAll(convertedList)
         }
     }

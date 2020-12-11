@@ -14,19 +14,37 @@ class SettingsViewModel : ViewModel() {
 
     private val settingsRepo = SettingsRepo()
 
+    // Min votes
     val minVotesLiveData = settingsRepo.getMinVotes.asLiveData()
 
-    fun onBtnMinusClick() {
+    fun onBtnMinusVotesNumClick() {
         viewModelScope.launch {
             val current = minVotesLiveData.value as Int
-            if (current > 1) settingsRepo.saveMinVotes(current - 1)
+            if (current > 0) settingsRepo.saveMinVotes(current - 1)
         }
     }
 
-    fun onBtnPlusClick() {
+    fun onBtnPlusVotesNumClick() {
         viewModelScope.launch {
             val current = minVotesLiveData.value as Int
             settingsRepo.saveMinVotes(current + 1)
+        }
+    }
+
+    // Min rating
+    val minRatingLiveData = settingsRepo.getMinRating.asLiveData()
+
+    fun onBtnMinusRatingClick() {
+        viewModelScope.launch {
+            val current = minRatingLiveData.value as Int
+            if (current > 0) settingsRepo.saveMinRating(current - 1)
+        }
+    }
+
+    fun onBtnPlusRatingClick() {
+        viewModelScope.launch {
+            val current = minRatingLiveData.value as Int
+            settingsRepo.saveMinRating(current + 1)
         }
     }
 

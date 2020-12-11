@@ -19,6 +19,7 @@ interface TmdbApiService {
         @Query("page") page: Long = 1,
         @Query("sort_by") sortBy: String = "release_date.desc",
         @Query("release_date.lte") todayDate: String = getTodayDate(),
-        @Query("vote_count.gte") minNumOfVotes: Int = 2
+        @Query("vote_count.gte") minNumOfVotes: Int = 2,
+        @Query("vote_average.gte") minRating: Int = 2
     ): TmdbNet.Discover
 }

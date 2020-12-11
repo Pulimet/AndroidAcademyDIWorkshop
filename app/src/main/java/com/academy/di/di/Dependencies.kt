@@ -10,7 +10,8 @@ import com.academy.network.di.NetworkDependencies
 object Dependencies {
     private val logger = OkHttpLogs()
     val moviesRepo = MoviesRepo()
-    val dataStore = App.applicationContext().createDataStore("DiWorkshop")
+    val dataStoreMinVotes = App.applicationContext().createDataStore("DiWorkshopVotes")
+    val dataStoreMinRating = App.applicationContext().createDataStore("DiWorkshopRating")
     fun getApiServices() = NetworkDependencies.getApiService(logger)
     fun getMovieDao() = DbDependencies.getMovieDao(App.applicationContext())
 }

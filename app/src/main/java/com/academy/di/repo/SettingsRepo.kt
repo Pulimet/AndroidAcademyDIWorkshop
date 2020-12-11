@@ -24,9 +24,11 @@ class SettingsRepo : CoroutineScope {
 
     companion object {
         val KEY_MIN_VOTES = preferencesKey<Int>("minVotes")
+        val KEY_MIN_RATING = preferencesKey<Int>("minRating")
     }
 
-    val getMinVotes: Flow<Int> = Dependencies.dataStore.data
+    // Min votes
+    val getMinVotes: Flow<Int> = Dependencies.dataStoreMinVotes.data
         .catch { exception ->
             // dataStore.data throws an IOException when an error is encountered when reading data
             if (exception is IOException) {
@@ -41,11 +43,31 @@ class SettingsRepo : CoroutineScope {
 
 
     suspend fun saveMinVotes(minVotes: Int) {
-        Dependencies.dataStore.edit { preferences ->
+        Dependencies.dataStoreMinVotes.edit { preferences ->
             preferences[KEY_MIN_VOTES] = minVotes
         }
     }
 
+    // Min rating
+    val getMinRating: Flow<Int> = Dependencies.dataStoreMinRating.data
+        .catch { exception ->
+            // dataStore.data throws an IOException when an error is encountered when reading data
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->
+            preferences[KEY_MIN_RATING] ?: 2
+        }
+
+
+    suspend fun saveMinRating(minVotes: Int) {
+        Dependencies.dataStoreMinRating.edit { preferences ->
+            preferences[KEY_MIN_RATING] = minVotes
+        }
+    }
 
     fun onCleared() {
         coroutineContext.cancelChildren()
