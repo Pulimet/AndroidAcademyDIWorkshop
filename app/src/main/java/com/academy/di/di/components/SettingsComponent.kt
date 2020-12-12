@@ -8,5 +8,12 @@ import dagger.Subcomponent
 @Subcomponent(modules = [SettingsModule::class])
 @SettingsScope
 interface SettingsComponent {
+
+    @Subcomponent.Builder
+    interface Builder {
+        fun settingsModule(settingsModule: SettingsModule): Builder
+        fun build(): SettingsComponent
+    }
+
     fun inject(settingsFragment: SettingsFragment)
 }

@@ -25,7 +25,10 @@ object Injector {
 
     fun getSettingsComponent(): SettingsComponent {
         if (settingsComponent == null) {
-            settingsComponent = appComponent.addSettingsSubComponent(SettingsModule())
+            settingsComponent = appComponent
+                .addSettingsSubComponent()
+                .settingsModule(SettingsModule())
+                .build()
         }
         return settingsComponent as SettingsComponent
     }

@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Component(modules = [DbModule::class, NetworkModule::class, MoviesModule::class, DataStoreModule::class, ExamplesModule::class])
 @Singleton
 interface AppComponent {
-    fun addSettingsSubComponent(settings: SettingsModule): SettingsComponent
+    fun addSettingsSubComponent(): SettingsComponent.Builder
 
     fun inject(moviesRepo: MoviesRepo)
     fun inject(homeFragment: HomeFragment)
