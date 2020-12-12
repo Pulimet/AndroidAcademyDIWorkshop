@@ -16,11 +16,13 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
+import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
 class SettingsRepo @Inject constructor(
-    private val dataStore: DataStore<Preferences>
-    ) : CoroutineScope {
+    @Named("Votes") private val dataStoreMinVotes: DataStore<Preferences>,
+    @Named("Rating") private val dataStoreMinRating: DataStore<Preferences>
+) : CoroutineScope {
     init {
         Log.w("Academy", "SettingsRepo init")
         Injector.appComponent.inject(this)
@@ -55,7 +57,7 @@ class SettingsRepo @Inject constructor(
     }
 
     // Min rating
-    val getMinRating: Flow<Int> = Dependencies.dataStoreMinRating.data
+    val getMinRating: Flow<Int> = dataStoreMinRating.data
         .catch { exception ->
             // dataStore.data throws an IOException when an error is encountered when reading data
             if (exception is IOException) {
@@ -70,7 +72,7 @@ class SettingsRepo @Inject constructor(
 
 
     suspend fun saveMinRating(minVotes: Int) {
-        Dependencies.dataStoreMinRating.edit { preferences ->
+        dataStoreMinRating.edit { preferences ->
             preferences[KEY_MIN_RATING] = minVotes
         }
     }

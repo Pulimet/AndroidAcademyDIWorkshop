@@ -13,12 +13,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
 class MoviesRepo @Inject constructor(
     private val movieDao: MovieDao,
     private val tmdbApiService: TmdbApiService,
-    private val dataStore: DataStore<Preferences>
+    @Named("Votes") private val dataStoreVotes: DataStore<Preferences>,
+    @Named("Rating") private val dataStoreRating: DataStore<Preferences>
 ) : CoroutineScope {
 
     init {
@@ -30,11 +32,11 @@ class MoviesRepo @Inject constructor(
     private var tempMinNumOfVotes = 0
     private var tempMinRating = 0
 
-    private fun getTempMinValue() = dataStore.data.map { preferences ->
+    private fun getTempMinValue() = dataStoreVotes.data.map { preferences ->
         preferences[SettingsRepo.KEY_MIN_VOTES] ?: 2
     }
 
-    private fun getTempMinRating() = Dependencies.dataStoreMinRating.data.map { preferences ->
+    private fun getTempMinRating() = dataStoreRating.data.map { preferences ->
         preferences[SettingsRepo.KEY_MIN_RATING] ?: 2
     }
 
@@ -63,7 +65,10 @@ class MoviesRepo @Inject constructor(
     private fun getFreshMoviesAndSaveThemToDBAsync() {
         launch {
             // Fetch fresh list from TMDB API
-            val movies = tmdbApiService.getMovies(minNumOfVotes = tempMinNumOfVotes, minRating = tempMinRating)
+            val movies = tmdbApiService.getMovies(
+                minNumOfVotes = tempMinNumOfVotes,
+                minRating = tempMinRating
+            )
             // Convert from network to database model
             val convertedList: List<Movie> = MovieModelConverter.convert(movies)
             // Save converted list to the database

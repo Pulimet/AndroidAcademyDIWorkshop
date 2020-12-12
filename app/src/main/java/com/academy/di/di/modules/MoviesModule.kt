@@ -7,6 +7,7 @@ import com.academy.di.repo.MoviesRepo
 import com.academy.network.services.TmdbApiService
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -16,7 +17,7 @@ class MoviesModule {
     fun getMoviesRepo(
         movieDao: MovieDao,
         tmdbApiService: TmdbApiService,
-        dataStore: DataStore<Preferences>
-    ) =
-        MoviesRepo(movieDao, tmdbApiService, dataStore)
+        @Named("Votes") dataStoreVotes: DataStore<Preferences>,
+        @Named("Rating") dataStoreRating: DataStore<Preferences>
+    ) = MoviesRepo(movieDao, tmdbApiService, dataStoreVotes, dataStoreRating)
 }
