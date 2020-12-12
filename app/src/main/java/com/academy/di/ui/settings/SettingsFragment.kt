@@ -22,19 +22,28 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), View.OnClickListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.minVotesLiveData.observe(viewLifecycleOwner) {
-            tvMinVotesValue.text = it.toString()
-        }
+        observeViewModel()
+        setOnClickListenerForViews(btnMinusVotes, btnPlusVotes, btnMinusRating, btnPlusRating)
+    }
 
-        btnMinus.setOnClickListener(this)
-        btnPlus.setOnClickListener(this)
+    private fun observeViewModel() {
+        viewModel.apply {
+            minVotesLiveData.observe(viewLifecycleOwner) { tvMinVotesValue.text = it.toString() }
+            minRatingLiveData.observe(viewLifecycleOwner) { tvMinRatingValue.text = it.toString() }
+        }
+    }
+
+    private fun setOnClickListenerForViews(vararg views: View) {
+        views.forEach { it.setOnClickListener(this) }
     }
 
     // View.OnClickListener
     override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.btnMinus -> viewModel.onBtnMinusClick()
-            R.id.btnPlus -> viewModel.onBtnPlusClick()
+        when (v?.id) {
+            R.id.btnMinusVotes -> viewModel.onBtnMinusVotesNumClick()
+            R.id.btnPlusVotes -> viewModel.onBtnPlusVotesNumClick()
+            R.id.btnMinusRating -> viewModel.onBtnMinusRatingClick()
+            R.id.btnPlusRating -> viewModel.onBtnPlusRatingClick()
         }
     }
 }
