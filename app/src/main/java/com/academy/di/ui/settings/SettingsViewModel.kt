@@ -44,7 +44,7 @@ class SettingsViewModel : ViewModel() {
     fun onBtnPlusRatingClick() {
         viewModelScope.launch {
             val current = minRatingLiveData.value as Int
-            settingsRepo.saveMinRating(current + 1)
+            if (current < 9) settingsRepo.saveMinRating(current + 1)
         }
     }
 
