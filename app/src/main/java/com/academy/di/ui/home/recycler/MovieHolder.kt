@@ -23,15 +23,29 @@ class MovieHolder(override val containerView: View, private val listener: OnMovi
 
     fun onBindViewHolder(movie: Movie) {
         this.movie = movie
+        setVotes(movie)
+        loadImage(movie)
+        ViewCompat.setTransitionName(imgMovie, "image_${movie.id}")
+    }
+
+    private fun setVotes(movie: Movie) {
+        val votesText = "${movie.vote} (${movie.voteCount})"
+        tvVotes.apply {
+            visibility = View.GONE
+            text = votesText
+        }
+    }
+
+    private fun loadImage(movie: Movie) {
         movie.posterUrl?.let {
             imgMovie.load(it) {
                 crossfade(true)
                 scale(Scale.FILL)
+                listener(onSuccess = { _, _ ->
+                    tvVotes.visibility = View.VISIBLE
+                })
             }
         }
-        val votesText = "${movie.vote} (${movie.voteCount})"
-        tvVotes.text = votesText
-        ViewCompat.setTransitionName(imgMovie, "image_${movie.id}")
     }
 
     // View.OnClickListener
