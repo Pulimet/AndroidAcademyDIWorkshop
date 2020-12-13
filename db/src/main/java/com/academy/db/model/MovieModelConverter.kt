@@ -13,7 +13,8 @@ object MovieModelConverter {
                 posterUrl = getImageUrl(it),
                 overview = it.overview,
                 date = it.date,
-                vote = it.vote
+                vote = it.vote,
+                voteCount = it.voteCount
             )
         }
     }

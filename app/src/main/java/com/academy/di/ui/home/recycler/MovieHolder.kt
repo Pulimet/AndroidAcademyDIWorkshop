@@ -29,6 +29,8 @@ class MovieHolder(override val containerView: View, private val listener: OnMovi
                 scale(Scale.FILL)
             }
         }
+        val votesText = "${movie.vote} (${movie.voteCount})"
+        tvVotes.text = votesText
         ViewCompat.setTransitionName(imgMovie, "image_${movie.id}")
     }
 

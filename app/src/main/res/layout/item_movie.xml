@@ -16,4 +16,19 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvVotes"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:background="#55000000"
+        android:gravity="center"
+        android:padding="4dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="8.3 (120)" />
 </androidx.constraintlayout.widget.ConstraintLayout>
