@@ -9,7 +9,7 @@
     <dimen name="settings_text_size">20sp</dimen>
     <dimen name="settings_line_height">60dp</dimen>
     <dimen name="settings_description_width">180dp</dimen>
-    <dimen name="settings_value_width">30dp</dimen>
+    <dimen name="settings_value_width">60dp</dimen>
     <dimen name="settings_button_width">50dp</dimen>
     <dimen name="settings_button_text_size">28sp</dimen>
 
