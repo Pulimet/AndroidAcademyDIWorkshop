@@ -1,6 +1,5 @@
-package com.academy.di.di.modules
+package com.academy.network.di
 
-import com.academy.di.utils.OkHttpLogs
 import com.academy.network.services.TmdbApiService
 import com.academy.network.utils.NetworkObjectsCreator
 import dagger.Module
@@ -14,10 +13,6 @@ class NetworkModule() {
     companion object {
         private const val TMDB_URL = "https://api.themoviedb.org/"
     }
-
-    @Provides
-    @Singleton
-    fun getOkHttpLogger(): HttpLoggingInterceptor.Logger = OkHttpLogs()
 
     @Provides
     @Singleton

@@ -6,10 +6,12 @@ import com.academy.db.MovieDao
 import com.academy.di.example.ImLogOnCreation
 import com.academy.di.example.LogOnCreationDemo
 import com.academy.di.repo.MoviesRepo
+import com.academy.di.utils.OkHttpLogs
 import com.academy.network.services.TmdbApiService
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Named
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -41,4 +43,8 @@ class MoviesModule {
         imLogOnCreationNotSingleton2,
         imLogOnCreationProviderExample
     )
+
+    @Provides
+    @Singleton
+    fun getOkHttpLogger(): HttpLoggingInterceptor.Logger = OkHttpLogs()
 }

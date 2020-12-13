@@ -1,4 +1,4 @@
-package com.academy.di.di.modules
+package com.academy.db.di
 
 import android.content.Context
 import androidx.room.Room
