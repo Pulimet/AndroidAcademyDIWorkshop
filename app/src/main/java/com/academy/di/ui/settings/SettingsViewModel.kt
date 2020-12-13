@@ -19,14 +19,26 @@ class SettingsViewModel(private val settingsRepo: SettingsRepo) : ViewModel() {
     fun onBtnMinusVotesNumClick() {
         viewModelScope.launch {
             val current = minVotesLiveData.value as Int
-            if (current > 0) settingsRepo.saveMinVotes(current - 1)
+            val minus = when {
+                current > 300 -> 100
+                current > 50 -> 50
+                current > 10 -> 10
+                else -> 5
+            }
+            if (current - minus > -1) settingsRepo.saveMinVotes(current - minus)
         }
     }
 
     fun onBtnPlusVotesNumClick() {
         viewModelScope.launch {
             val current = minVotesLiveData.value as Int
-            settingsRepo.saveMinVotes(current + 1)
+            val add = when {
+                current > 250 -> 100
+                current > 40 -> 50
+                current > 5 -> 10
+                else -> 5
+            }
+            settingsRepo.saveMinVotes(current + add)
         }
     }
 

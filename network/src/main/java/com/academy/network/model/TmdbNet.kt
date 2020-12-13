@@ -17,6 +17,7 @@ object TmdbNet {
         @SerializedName("backdrop_path") val backImg: String?,
         val overview: String,
         @SerializedName("release_date") val date: String,
-        @SerializedName("vote_average") val vote: Double
+        @SerializedName("vote_average") val vote: Double,
+        @SerializedName("vote_count") val voteCount: Int
     )
 }

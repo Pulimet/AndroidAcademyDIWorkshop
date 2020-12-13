@@ -33,6 +33,9 @@ class SettingsRepo @Inject constructor(
     companion object {
         val KEY_MIN_VOTES = preferencesKey<Int>("minVotes")
         val KEY_MIN_RATING = preferencesKey<Int>("minRating")
+
+        private const val DEFAULT_MIN_VOTES = 5
+        private const val DEFAULT_MIN_RATING = 2
     }
 
     // Min votes
@@ -46,7 +49,7 @@ class SettingsRepo @Inject constructor(
             }
         }
         .map { preferences ->
-            preferences[KEY_MIN_VOTES] ?: 2
+            preferences[KEY_MIN_VOTES] ?: DEFAULT_MIN_VOTES
         }
 
 
@@ -67,7 +70,7 @@ class SettingsRepo @Inject constructor(
             }
         }
         .map { preferences ->
-            preferences[KEY_MIN_RATING] ?: 2
+            preferences[KEY_MIN_RATING] ?: DEFAULT_MIN_RATING
         }
 
 

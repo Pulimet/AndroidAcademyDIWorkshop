@@ -16,7 +16,8 @@ data class Movie(
     val posterUrl: String?,
     val overview: String,
     val date: String,
-    val vote: Double
+    val vote: Double,
+    val voteCount: Int
 ): Parcelable {
     fun getTitleWithYear() = title + " (" + getYear() + ")"
 
