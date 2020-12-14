@@ -7,30 +7,28 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
 import com.academy.db.model.Movie
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_movie.*
+import com.academy.di.databinding.ItemMovieBinding
 
-class MovieHolder(override val containerView: View, private val listener: OnMovieClickListener) :
-    RecyclerView.ViewHolder(containerView),
-    LayoutContainer,
-    View.OnClickListener {
+class MovieHolder(v: View, private val listener: OnMovieClickListener) :
+    RecyclerView.ViewHolder(v), View.OnClickListener {
 
     init {
         itemView.setOnClickListener(this)
     }
 
+    private val binding = ItemMovieBinding.bind(v)
     private var movie: Movie? = null
 
     fun onBindViewHolder(movie: Movie) {
         this.movie = movie
         setVotes(movie)
         loadImage(movie)
-        ViewCompat.setTransitionName(imgMovie, "image_${movie.id}")
+        ViewCompat.setTransitionName(binding.imgMovie, "image_${movie.id}")
     }
 
     private fun setVotes(movie: Movie) {
         val votesText = "${movie.vote} (${movie.voteCount})"
-        tvVotes.apply {
+        binding.tvVotes.apply {
             visibility = View.GONE
             text = votesText
         }
@@ -38,11 +36,11 @@ class MovieHolder(override val containerView: View, private val listener: OnMovi
 
     private fun loadImage(movie: Movie) {
         movie.posterUrl?.let {
-            imgMovie.load(it) {
+            binding.imgMovie.load(it) {
                 crossfade(true)
                 scale(Scale.FILL)
                 listener(onSuccess = { _, _ ->
-                    tvVotes.visibility = View.VISIBLE
+                    binding.tvVotes.visibility = View.VISIBLE
                 })
             }
         }
@@ -52,7 +50,7 @@ class MovieHolder(override val containerView: View, private val listener: OnMovi
     override fun onClick(v: View?) {
         if (adapterPosition != RecyclerView.NO_POSITION) {
             val extras = FragmentNavigatorExtras(
-                imgMovie to "image_${movie?.id}"
+                binding.imgMovie to "image_${movie?.id}"
             )
             movie?.let { listener.onClick(it, extras, adapterPosition) }
         }

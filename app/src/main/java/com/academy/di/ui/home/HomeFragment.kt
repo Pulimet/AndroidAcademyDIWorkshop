@@ -2,11 +2,7 @@ package com.academy.di.ui.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import androidx.fragment.app.Fragment
+import android.view.*
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,14 +11,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.academy.db.model.Movie
 import com.academy.di.R
+import com.academy.di.databinding.FragmentHomeBinding
+import com.academy.di.ui.base.BindFragment
 import com.academy.di.ui.home.recycler.HomeAdapter
 import com.academy.di.ui.home.recycler.OnMovieClickListener
 import com.academy.di.ui.navigation.NavigationViewModel
-import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
+class HomeFragment : BindFragment<FragmentHomeBinding>(R.layout.fragment_home),
+    OnMovieClickListener {
+
     private val viewModel: HomeViewModel by viewModels()
     private val navViewModel: NavigationViewModel by activityViewModels()
 
@@ -36,6 +35,7 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bindIt(FragmentHomeBinding.bind(view))
         setRecyclerView()
         setSwipeRefreshLayout()
         observeViewModel()
@@ -43,50 +43,47 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
 
     private fun setRecyclerView() {
         Log.w("Academy", "setRecyclerView")
-        homeRecyclerView.apply {
+        binding.homeRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2).apply { gridLayoutManager = this }
             adapter = HomeAdapter(this@HomeFragment).apply { homeAdapter = this }
 
-            // Scrolls to position of selected item on going back to the list
-            scrollToPreviouslyClickedItem(layoutManager)
-
             // Solves return transition animation
-            postponeAndStartTransitionAnimation()
-        }
-    }
-
-    private fun RecyclerView.postponeAndStartTransitionAnimation() {
-        postponeEnterTransition()
-        viewTreeObserver.addOnPreDrawListener {
-            startPostponedEnterTransition()
-            true
-        }
-    }
-
-    private fun scrollToPreviouslyClickedItem(layoutManager: RecyclerView.LayoutManager?) {
-        lifecycleScope.launch {
-            if (viewModel.savedItemPosition > 4) {
-                delay(50) // Without this delay scrollToPosition function not working
-                layoutManager?.scrollToPosition(viewModel.savedItemPosition)
-            }
+            postponeEnterTransition()
         }
     }
 
     private fun setSwipeRefreshLayout() {
-        swipeRefreshLayout.isRefreshing = true
-        swipeRefreshLayout.setOnRefreshListener { viewModel.onUserRefreshedMain() }
+        binding.swipeRefreshLayout.isRefreshing = true
+        binding.swipeRefreshLayout.setOnRefreshListener { viewModel.onUserRefreshedMain() }
     }
 
     private fun observeViewModel() {
         viewModel.getMovies().observe(viewLifecycleOwner) {
             homeAdapter?.setItems(it)
-            if (it.isNotEmpty()) swipeRefreshLayout.isRefreshing = false
+            // Scrolls to position of selected item on going back to the list
+            scrollToPreviouslyClickedItem(gridLayoutManager)
+            if (it.isNotEmpty()) binding.swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun scrollToPreviouslyClickedItem(layoutManager: RecyclerView.LayoutManager?) {
+        Log.d("Academy", "If viewModel.savedItemPosition more than 4, scroll to it. (${viewModel.savedItemPosition})")
+        lifecycleScope.launch {
+            if (viewModel.savedItemPosition > 4) {
+                delay(80) // Without this delay scrollToPosition function not working
+                layoutManager?.scrollToPosition(viewModel.savedItemPosition)
+                delay(10)
+                startPostponedEnterTransition()
+            } else {
+                startPostponedEnterTransition()
+            }
         }
     }
 
     // OnMovieClickListener
     override fun onClick(movie: Movie, extras: FragmentNavigator.Extras, position: Int) {
         viewModel.saveClickedItemPosition(position)
+        Log.d("Academy", "Clicked item position saved: $position")
         navViewModel.onUserMovieClick(movie, extras)
     }
 
@@ -100,6 +97,10 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
         when (item.itemId) {
             R.id.action_settings -> {
                 viewModel.saveFirstVisiblePosition(gridLayoutManager?.findFirstVisibleItemPosition())
+                Log.d(
+                    "Academy",
+                    "First visible position saved: ${gridLayoutManager?.findFirstVisibleItemPosition()}"
+                )
                 navViewModel.onSettingsClick()
                 true
             }
