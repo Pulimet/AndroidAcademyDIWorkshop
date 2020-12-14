@@ -3,17 +3,20 @@ package com.academy.di.ui.details
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import coil.load
 import com.academy.di.R
 import com.academy.di.databinding.FragmentDetailsBinding
-import com.academy.di.ui.base.BindFragment
+import com.academy.di.ui.binding.FragmentBinding
 
-class DetailsFragment : BindFragment<FragmentDetailsBinding>(R.layout.fragment_details) {
+class DetailsFragment : Fragment(R.layout.fragment_details) {
     private val viewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
+
+    private val binding by FragmentBinding(FragmentDetailsBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +26,6 @@ class DetailsFragment : BindFragment<FragmentDetailsBinding>(R.layout.fragment_d
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindIt(FragmentDetailsBinding.bind(view))
         fillMovieData()
         ViewCompat.setTransitionName(binding.imgMoviePoster, "image_${args.movie.id}")
     }

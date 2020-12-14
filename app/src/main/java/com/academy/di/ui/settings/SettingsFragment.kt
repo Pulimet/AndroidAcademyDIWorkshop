@@ -2,18 +2,20 @@ package com.academy.di.ui.settings
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.academy.di.R
 import com.academy.di.databinding.FragmentSettingsBinding
-import com.academy.di.ui.base.BindFragment
+import com.academy.di.ui.binding.FragmentBinding
 
-class SettingsFragment : BindFragment<FragmentSettingsBinding>(R.layout.fragment_settings),
+class SettingsFragment : Fragment(R.layout.fragment_settings),
     View.OnClickListener {
     private val viewModel: SettingsViewModel by viewModels()
 
+    private val binding by FragmentBinding(FragmentSettingsBinding::bind)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindIt(FragmentSettingsBinding.bind(view))
         observeViewModel()
         binding.apply {
             setOnClickListenerForViews(btnMinusVotes, btnPlusVotes, btnMinusRating, btnPlusRating)
