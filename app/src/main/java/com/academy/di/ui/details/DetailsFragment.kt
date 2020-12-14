@@ -9,29 +9,33 @@ import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import coil.load
 import com.academy.di.R
-import kotlinx.android.synthetic.main.details_fragment.*
+import com.academy.di.databinding.FragmentDetailsBinding
+import com.academy.di.ui.binding.FragmentBinding
 
-class DetailsFragment : Fragment(R.layout.details_fragment) {
+class DetailsFragment : Fragment(R.layout.fragment_details) {
     private val viewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
 
+    private val binding by FragmentBinding(FragmentDetailsBinding::bind)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fillMovieData()
-        ViewCompat.setTransitionName(imgMoviePoster, "image_${args.movie.id}")
+        ViewCompat.setTransitionName(binding.imgMoviePoster, "image_${args.movie.id}")
     }
 
     private fun fillMovieData() {
         args.movie.let {
-            imgMoviePoster.load(it.posterUrl)
-            tvTitle.text = it.getTitleWithYear()
-            tvDescription.text = it.overview
-            tvRating.text = String.format("Rating: %s", it.vote.toString())
+            binding.imgMoviePoster.load(it.posterUrl)
+            binding.tvTitle.text = it.getTitleWithYear()
+            binding.tvDescription.text = it.overview
+            binding.tvRating.text = String.format("Rating: %s", it.vote.toString())
         }
     }
 }

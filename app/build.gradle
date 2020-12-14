@@ -1,13 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions' // Added to support synthetic view access
     id 'androidx.navigation.safeargs.kotlin' // Navigation Component
     id 'kotlin-kapt' // For Dagger 2
-}
-
-androidExtensions {
-    experimental = true
 }
 
 android {
@@ -29,6 +24,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        viewBinding true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

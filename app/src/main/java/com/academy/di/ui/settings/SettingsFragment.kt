@@ -7,7 +7,8 @@ import androidx.fragment.app.viewModels
 import com.academy.di.R
 import com.academy.di.di.Injector
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_settings.*
+import com.academy.di.databinding.FragmentSettingsBinding
+import com.academy.di.ui.binding.FragmentBinding
 
 class SettingsFragment : Fragment(R.layout.fragment_settings), View.OnClickListener {
     @Inject
@@ -19,17 +20,24 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), View.OnClickListe
         Injector.getSettingsComponent().inject(this)
     }
 
+    private val binding by FragmentBinding(FragmentSettingsBinding::bind)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeViewModel()
-        setOnClickListenerForViews(btnMinusVotes, btnPlusVotes, btnMinusRating, btnPlusRating)
+        binding.apply {
+            setOnClickListenerForViews(btnMinusVotes, btnPlusVotes, btnMinusRating, btnPlusRating)
+        }
     }
 
     private fun observeViewModel() {
         viewModel.apply {
-            minVotesLiveData.observe(viewLifecycleOwner) { tvMinVotesValue.text = it.toString() }
-            minRatingLiveData.observe(viewLifecycleOwner) { tvMinRatingValue.text = it.toString() }
+            minVotesLiveData.observe(viewLifecycleOwner) {
+                binding.tvMinVotesValue.text = it.toString()
+            }
+            minRatingLiveData.observe(viewLifecycleOwner) {
+                binding.tvMinRatingValue.text = it.toString()
+            }
         }
     }
 

@@ -2,10 +2,7 @@ package com.academy.di.ui.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -16,20 +13,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.academy.db.model.Movie
 import com.academy.di.R
 import com.academy.di.di.Injector
+import com.academy.di.databinding.FragmentHomeBinding
+import com.academy.di.ui.binding.FragmentBinding
 import com.academy.di.ui.home.recycler.HomeAdapter
 import com.academy.di.ui.home.recycler.OnMovieClickListener
 import com.academy.di.ui.navigation.NavigationViewModel
-import kotlinx.android.synthetic.main.home_fragment.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
+class HomeFragment : Fragment(R.layout.fragment_home), OnMovieClickListener {
     @Inject
     internal lateinit var homeViewModelFactory: HomeViewModelFactory
     private val viewModel: HomeViewModel by viewModels{homeViewModelFactory}
 
     private val navViewModel: NavigationViewModel by activityViewModels()
+
+    private val binding by FragmentBinding(FragmentHomeBinding::bind)
 
     private var homeAdapter: HomeAdapter? = null
     private var gridLayoutManager: GridLayoutManager? = null
@@ -49,44 +49,39 @@ class HomeFragment : Fragment(R.layout.home_fragment), OnMovieClickListener {
 
     private fun setRecyclerView() {
         Log.w("Academy", "setRecyclerView")
-        homeRecyclerView.apply {
+        binding.homeRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2).apply { gridLayoutManager = this }
             adapter = HomeAdapter(this@HomeFragment).apply { homeAdapter = this }
 
-            // Scrolls to position of selected item on going back to the list
-            scrollToPreviouslyClickedItem(layoutManager)
-
             // Solves return transition animation
-            postponeAndStartTransitionAnimation()
+            postponeEnterTransition()
         }
     }
 
-    private fun RecyclerView.postponeAndStartTransitionAnimation() {
-        postponeEnterTransition()
-        viewTreeObserver.addOnPreDrawListener {
-            startPostponedEnterTransition()
-            true
+    private fun setSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        binding.swipeRefreshLayout.setOnRefreshListener { viewModel.onUserRefreshedMain() }
+    }
+
+    private fun observeViewModel() {
+        viewModel.getMovies().observe(viewLifecycleOwner) {
+            homeAdapter?.setItems(it)
+            // Scrolls to position of selected item on going back to the list
+            scrollToPreviouslyClickedItem(gridLayoutManager)
+            if (it.isNotEmpty()) binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
     private fun scrollToPreviouslyClickedItem(layoutManager: RecyclerView.LayoutManager?) {
         lifecycleScope.launch {
             if (viewModel.savedItemPosition > 4) {
-                delay(50) // Without this delay scrollToPosition function not working
+                delay(80) // Without this delay scrollToPosition function not working
                 layoutManager?.scrollToPosition(viewModel.savedItemPosition)
+                delay(10)
+                startPostponedEnterTransition()
+            } else {
+                startPostponedEnterTransition()
             }
-        }
-    }
-
-    private fun setSwipeRefreshLayout() {
-        swipeRefreshLayout.isRefreshing = true
-        swipeRefreshLayout.setOnRefreshListener { viewModel.onUserRefreshedMain() }
-    }
-
-    private fun observeViewModel() {
-        viewModel.getMovies().observe(viewLifecycleOwner) {
-            homeAdapter?.setItems(it)
-            if (it.isNotEmpty()) swipeRefreshLayout.isRefreshing = false
         }
     }
 
