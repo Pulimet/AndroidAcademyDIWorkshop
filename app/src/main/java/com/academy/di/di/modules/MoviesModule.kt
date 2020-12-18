@@ -2,7 +2,8 @@ package com.academy.di.di.modules
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.academy.db.MovieDao
+import com.academy.db.dao.MovieDao
+import com.academy.db.dao.MovieFavoriteDao
 import com.academy.di.example.ImLogOnCreation
 import com.academy.di.example.LogOnCreationDemo
 import com.academy.di.repo.MoviesRepo
@@ -22,11 +23,12 @@ class MoviesModule {
     @Singleton
     fun getMoviesRepo(
         movieDao: MovieDao,
+        movieFavoriteDao: MovieFavoriteDao,
         tmdbApiService: TmdbApiService,
         @Named("Votes") dataStoreVotes: DataStore<Preferences>,
         @Named("Rating") dataStoreRating: DataStore<Preferences>,
         logOnCreationDemo: LogOnCreationDemo
-    ) = MoviesRepo(movieDao, tmdbApiService, dataStoreVotes, dataStoreRating, logOnCreationDemo)
+    ) = MoviesRepo(movieDao, movieFavoriteDao,  tmdbApiService, dataStoreVotes, dataStoreRating, logOnCreationDemo)
 
     @Provides
     @Singleton

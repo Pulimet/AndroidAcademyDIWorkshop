@@ -3,7 +3,8 @@ package com.academy.di.repo
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.academy.db.MovieDao
+import com.academy.db.dao.MovieDao
+import com.academy.db.dao.MovieFavoriteDao
 import com.academy.db.model.Movie
 import com.academy.db.model.MovieFavorite
 import com.academy.db.utils.MovieModelConverter
@@ -20,6 +21,7 @@ import kotlin.coroutines.CoroutineContext
 
 class MoviesRepo @Inject constructor(
     private val movieDao: MovieDao,
+    private val movieFavoriteDao: MovieFavoriteDao,
     private val tmdbApiService: TmdbApiService,
     @Named("Votes") private val dataStoreVotes: DataStore<Preferences>,
     @Named("Rating") private val dataStoreRating: DataStore<Preferences>,
@@ -85,11 +87,11 @@ class MoviesRepo @Inject constructor(
 
     // Favorites
     fun getMovieFromFavorites(movieId: Int): Flow<MovieFavorite> =
-        Dependencies.getMovieFavoriteDao().getMovie(movieId)
+        movieFavoriteDao.getMovie(movieId)
 
     suspend fun addOrRemoveMovieFromFavorites(movie: Movie, movieInFavorites: Boolean) {
         val movieFavorite: MovieFavorite = MovieModelConverter.convertMovieToMovieFavorite(movie)
-        Dependencies.getMovieFavoriteDao().run {
+        movieFavoriteDao.run {
             if (movieInFavorites) delete(movieFavorite) else insert(movieFavorite)
         }
     }

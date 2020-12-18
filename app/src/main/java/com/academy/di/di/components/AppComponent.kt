@@ -5,6 +5,7 @@ import com.academy.di.di.modules.*
 import com.academy.di.example.LogOnCreationDemo
 import com.academy.di.repo.MoviesRepo
 import com.academy.di.repo.SettingsRepo
+import com.academy.di.ui.details.DetailsFragment
 import com.academy.di.ui.home.HomeFragment
 import com.academy.network.di.NetworkModule
 import dagger.Component
@@ -17,6 +18,7 @@ interface AppComponent {
 
     fun inject(moviesRepo: MoviesRepo)
     fun inject(homeFragment: HomeFragment)
+    fun inject(detailsFragment: DetailsFragment)
     fun inject(settingsRepo: SettingsRepo)
     fun inject(logOnCreationDemo: LogOnCreationDemo)
 }

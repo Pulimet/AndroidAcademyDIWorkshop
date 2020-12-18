@@ -10,16 +10,22 @@ import androidx.transition.TransitionInflater
 import coil.load
 import com.academy.di.R
 import com.academy.di.databinding.FragmentDetailsBinding
+import com.academy.di.di.Injector
 import com.academy.di.ui.binding.FragmentBinding
+import javax.inject.Inject
 
 class DetailsFragment : Fragment(R.layout.fragment_details), View.OnClickListener {
-    private val viewModel: DetailsViewModel by viewModels()
+    @Inject
+    internal lateinit var detailsViewModelFactory: DetailsViewModelFactory
+    private val viewModel: DetailsViewModel by viewModels{detailsViewModelFactory}
+
     private val args: DetailsFragmentArgs by navArgs()
 
     private val binding by FragmentBinding(FragmentDetailsBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Injector.appComponent.inject(this)
         sharedElementEnterTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
