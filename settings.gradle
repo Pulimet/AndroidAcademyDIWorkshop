@@ -1,2 +1,2 @@
-include ':app', ':network', ':db'
+include ':app', ':network', ':db', ':navigation', ':ui-favorites'
 rootProject.name = "Academy DI"

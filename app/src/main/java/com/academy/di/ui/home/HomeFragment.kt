@@ -104,6 +104,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMovieClickListener {
                 navViewModel.onSettingsClick()
                 true
             }
+            R.id.action_favorites -> {
+                navViewModel.onFavoritesClick()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
 

@@ -31,4 +31,10 @@
         android:name="com.academy.di.ui.settings.SettingsFragment"
         android:label="@string/fragment_title_settings"
         tools:layout="@layout/fragment_settings" />
+
+    <include app:graph="@navigation/nav_graph_favorites" />
+
+    <action
+        android:id="@+id/action_global_favorites"
+        app:destination="@id/nav_id_favorites" />
 </navigation>

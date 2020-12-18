@@ -6,4 +6,10 @@
         android:icon="@drawable/ic_settings"
         android:title="@string/action_settings"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_favorites"
+        android:icon="@drawable/ic_favorite_filled"
+        android:title="@string/action_favorites"
+        app:showAsAction="always" />
 </menu>
