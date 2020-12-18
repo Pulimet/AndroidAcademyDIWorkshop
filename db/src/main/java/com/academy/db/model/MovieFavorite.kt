@@ -7,8 +7,8 @@ import com.academy.db.utils.MovieModelConverter
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "movies")
-data class Movie(
+@Entity(tableName = "movies_favorite")
+data class MovieFavorite(
     @PrimaryKey
     val id: Int,
     val title: String,
