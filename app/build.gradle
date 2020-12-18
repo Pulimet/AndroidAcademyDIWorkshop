@@ -40,6 +40,8 @@ dependencies {
     // Modules dependencies
     implementation project(path: ':db')
     implementation project(path: ':network')
+    implementation project(path: ':navigation')
+    implementation project(path: ':ui-favorites')
 
     // Kotlin
     //noinspection DifferentStdlibGradleVersion
