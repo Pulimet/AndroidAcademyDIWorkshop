@@ -14,4 +14,5 @@ object Dependencies {
     val dataStoreMinRating = App.applicationContext().createDataStore("DiWorkshopRating")
     fun getApiServices() = NetworkDependencies.getApiService(logger)
     fun getMovieDao() = DbDependencies.getMovieDao(App.applicationContext())
+    fun getMovieFavoriteDao() = DbDependencies.getMovieFavoriteDao(App.applicationContext())
 }

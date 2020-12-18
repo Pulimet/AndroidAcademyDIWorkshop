@@ -12,7 +12,7 @@ import com.academy.di.R
 import com.academy.di.databinding.FragmentDetailsBinding
 import com.academy.di.ui.binding.FragmentBinding
 
-class DetailsFragment : Fragment(R.layout.fragment_details) {
+class DetailsFragment : Fragment(R.layout.fragment_details), View.OnClickListener {
     private val viewModel: DetailsViewModel by viewModels()
     private val args: DetailsFragmentArgs by navArgs()
 
@@ -28,7 +28,15 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         super.onViewCreated(view, savedInstanceState)
         fillMovieData()
         ViewCompat.setTransitionName(binding.imgMoviePoster, "image_${args.movie.id}")
+
+        viewModel.getMovieFromFavorites(args.movie.id).observe(viewLifecycleOwner) {
+            binding.ivFavorite.setImageResource(getFavoriteResource(it))
+        }
+        binding.ivFavorite.setOnClickListener(this)
     }
+
+    private fun getFavoriteResource(isInFavorites: Boolean) =
+        if (isInFavorites) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border
 
     private fun fillMovieData() {
         args.movie.let {
@@ -37,5 +45,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             binding.tvDescription.text = it.overview
             binding.tvRating.text = String.format("Rating: %s", it.vote.toString())
         }
+    }
+
+    override fun onClick(v: View?) {
+        viewModel.onFavoriteImageClick(args.movie)
     }
 }

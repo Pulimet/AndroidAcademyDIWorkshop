@@ -1,4 +1,4 @@
-package com.academy.db
+package com.academy.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

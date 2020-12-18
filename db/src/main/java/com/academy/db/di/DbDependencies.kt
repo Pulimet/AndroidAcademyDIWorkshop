@@ -2,8 +2,9 @@ package com.academy.db.di
 
 import android.content.Context
 import androidx.room.Room
-import com.academy.db.MovieDao
+import com.academy.db.dao.MovieDao
 import com.academy.db.MovieDatabase
+import com.academy.db.dao.MovieFavoriteDao
 
 object DbDependencies {
     private lateinit var roomDb: MovieDatabase
@@ -14,4 +15,5 @@ object DbDependencies {
     }
 
     fun getMovieDao(context: Context): MovieDao = getRoomDb(context).movieDao()
+    fun getMovieFavoriteDao(context: Context): MovieFavoriteDao = getRoomDb(context).movieFavoriteDao()
 }
