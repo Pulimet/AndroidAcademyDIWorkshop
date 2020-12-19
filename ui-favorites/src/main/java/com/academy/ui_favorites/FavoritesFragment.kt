@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.academy.ui_favorites.binding.FragmentBinding
 import com.academy.ui_favorites.databinding.FragmentFavoritesBinding
+import com.academy.ui_favorites.di.Dependencies
 import com.academy.ui_favorites.recycler.FavoritesAdapter
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
@@ -25,6 +26,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Dependencies.appContext = requireContext().applicationContext
         setRecyclerView()
         observeViewModel()
     }
@@ -38,9 +40,9 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     }
 
     private fun observeViewModel() {
-/*        viewModel.getMovies().observe(viewLifecycleOwner) {
+        viewModel.getMovies().observe(viewLifecycleOwner) {
             favoritesAdapter?.setItems(it)
-        }*/
+        }
     }
 
 }
