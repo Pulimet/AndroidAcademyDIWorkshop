@@ -16,7 +16,11 @@ class MoviesRepo : CoroutineScope {
         Log.w("Academy", "MoviesRepo init")
     }
 
-    override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
+    private val handler = CoroutineExceptionHandler { _, throwable ->
+        Log.e("Academy", "Coroutine Exception: ${throwable.message}", throwable)
+    }
+
+    override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO + handler
     private var tempMinNumOfVotes = 0
     private var tempMinRating = 0
 
