@@ -3,6 +3,7 @@ package com.academy.di
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import com.academy.di.di.Injector
 
 class App : Application() {
     init {
@@ -15,5 +16,10 @@ class App : Application() {
         fun applicationContext(): Context {
             return instance!!.applicationContext
         }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        Injector.buildDaggerAppComponent(this)
     }
 }

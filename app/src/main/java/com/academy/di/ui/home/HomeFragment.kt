@@ -13,16 +13,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.academy.db.model.Movie
 import com.academy.di.R
 import com.academy.di.databinding.FragmentHomeBinding
+import com.academy.di.di.Injector
 import com.academy.di.ui.binding.FragmentBinding
 import com.academy.di.ui.home.recycler.HomeAdapter
 import com.academy.di.ui.home.recycler.OnMovieClickListener
 import com.academy.di.ui.navigation.NavigationViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class HomeFragment : Fragment(R.layout.fragment_home), OnMovieClickListener {
+    @Inject
+    internal lateinit var homeViewModelFactory: HomeViewModelFactory
+    private val viewModel: HomeViewModel by viewModels{homeViewModelFactory}
 
-    private val viewModel: HomeViewModel by viewModels()
     private val navViewModel: NavigationViewModel by activityViewModels()
 
     private val binding by FragmentBinding(FragmentHomeBinding::bind)
@@ -32,6 +36,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMovieClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Injector.appComponent.inject(this)
         setHasOptionsMenu(true)
     }
 

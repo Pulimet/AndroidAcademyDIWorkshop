@@ -4,18 +4,19 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.academy.di.di.Dependencies
+import com.academy.di.repo.MoviesRepo
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val moviesRepo: MoviesRepo) : ViewModel() {
     init {
         Log.w("Academy", "HomeViewModel init")
     }
 
     var savedItemPosition = 0
 
-    fun getMovies() = Dependencies.moviesRepo.getMovies().asLiveData()
+    fun getMovies() = moviesRepo.getMovies().asLiveData()
 
     fun onUserRefreshedMain() {
-        Dependencies.moviesRepo.fetchFreshMovies()
+        moviesRepo.fetchFreshMovies()
     }
 
     fun saveClickedItemPosition(position: Int?) {
@@ -27,7 +28,7 @@ class HomeViewModel : ViewModel() {
     }
 
     override fun onCleared() {
-        Dependencies.moviesRepo.onCleared()
+        moviesRepo.onCleared()
         Log.w("Academy", "HomeViewModel onCleared")
     }
 }

@@ -1,20 +1,33 @@
 package com.academy.di.repo
 
 import android.util.Log
+import com.academy.db.dao.MovieDao
+import com.academy.db.dao.MovieFavoriteDao
 import com.academy.db.model.Movie
 import com.academy.db.model.MovieFavorite
 import com.academy.db.utils.MovieModelConverter
 import com.academy.di.di.Dependencies
+import com.academy.di.di.Injector
+import com.academy.network.services.TmdbApiService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class MoviesRepo : CoroutineScope {
     init {
         Log.w("Academy", "MoviesRepo init")
+        Injector.appComponent.inject(this)
     }
+
+    @Inject
+    internal lateinit var movieDao: MovieDao
+    @Inject
+    internal lateinit var movieFavoriteDao: MovieFavoriteDao
+    @Inject
+    internal lateinit var tmdbApiService: TmdbApiService
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
         Log.e("Academy", "Coroutine Exception: ${throwable.message}", throwable)
@@ -33,7 +46,7 @@ class MoviesRepo : CoroutineScope {
     }
 
     // Returns Flow with list of movies from database
-    fun getMovies(): Flow<List<Movie>> = Dependencies.getMovieDao().getMovies().map {
+    fun getMovies(): Flow<List<Movie>> = movieDao.getMovies().map {
         ifFirstTimeOrSettingsChangedFetchFreshMovies(it)
         it
     }
@@ -57,7 +70,7 @@ class MoviesRepo : CoroutineScope {
     private fun getFreshMoviesAndSaveThemToDBAsync() {
         launch {
             // Fetch fresh list from TMDB API
-            val movies = Dependencies.getApiServices().getMovies(
+            val movies = tmdbApiService.getMovies(
                 minNumOfVotes = tempMinNumOfVotes,
                 minRating = tempMinRating
             )
@@ -65,18 +78,18 @@ class MoviesRepo : CoroutineScope {
             val convertedList: List<Movie> =
                 MovieModelConverter.convertTmdbResultsToListOfMovies(movies)
             // Save converted list to the database
-            Dependencies.getMovieDao().deleteAll()
-            Dependencies.getMovieDao().insertAll(convertedList)
+            movieDao.deleteAll()
+            movieDao.insertAll(convertedList)
         }
     }
 
     // Favorites
     fun getMovieFromFavorites(movieId: Int): Flow<MovieFavorite> =
-        Dependencies.getMovieFavoriteDao().getMovie(movieId)
+        movieFavoriteDao.getMovie(movieId)
 
     suspend fun addOrRemoveMovieFromFavorites(movie: Movie, movieInFavorites: Boolean) {
         val movieFavorite: MovieFavorite = MovieModelConverter.convertMovieToMovieFavorite(movie)
-        Dependencies.getMovieFavoriteDao().run {
+        movieFavoriteDao.run {
             if (movieInFavorites) delete(movieFavorite) else insert(movieFavorite)
         }
     }
