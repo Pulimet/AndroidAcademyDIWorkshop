@@ -6,15 +6,24 @@ import com.academy.di.di.components.AppComponent
 import com.academy.di.di.components.DaggerAppComponent
 import com.academy.di.di.components.SettingsComponent
 import com.academy.di.di.modules.*
+import com.academy.navigation.BaseInjector
+import com.academy.navigation.DiHolder
 import com.academy.network.di.NetworkModule
+import com.academy.ui_favorites.di.FavoritesComponent
+import com.academy.ui_favorites.di.FavoritesModule
 
-object Injector {
+object Injector: BaseInjector {
     lateinit var appComponent: AppComponent
 
     private var settingsComponent: SettingsComponent? = null
+    private var favoritesComponent: FavoritesComponent? = null
     private lateinit var appContext: Context
 
-    fun buildDaggerAppComponent(applicationContext: Context) {
+    init {
+        DiHolder.baseInjector = this
+    }
+
+    fun buildDaggerAppComponent(applicationContext: Context){
         appContext = applicationContext
         appComponent = DaggerAppComponent.builder()
             .moviesModule(MoviesModule())
@@ -25,6 +34,7 @@ object Injector {
             .build()
     }
 
+    // Settings
     fun getSettingsComponent(): SettingsComponent {
         if (settingsComponent == null) {
             settingsComponent = appComponent
@@ -37,5 +47,20 @@ object Injector {
 
     fun clearSettingsComponent() {
         settingsComponent = null
+    }
+
+    // Favorites
+    override fun getFavoritesComponent(): FavoritesComponent {
+        if (favoritesComponent == null) {
+            favoritesComponent = appComponent
+                .addFavoritesSubComponent()
+                .favoritesModule(FavoritesModule())
+                .build()
+        }
+        return favoritesComponent as FavoritesComponent
+    }
+
+    override fun clearFavoritesComponent() {
+        favoritesComponent = null
     }
 }

@@ -9,11 +9,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.academy.ui_favorites.binding.FragmentBinding
 import com.academy.ui_favorites.databinding.FragmentFavoritesBinding
 import com.academy.ui_favorites.di.Dependencies
+import com.academy.ui_favorites.di.FavoritesComponent
 import com.academy.ui_favorites.recycler.FavoritesAdapter
+import javax.inject.Inject
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
-    private val viewModel: FavoritesViewModel by viewModels()
+    @Inject
+    internal lateinit var favoritesViewModelFactory: FavoritesViewModelFactory
+    private val viewModel: FavoritesViewModel by viewModels { favoritesViewModelFactory }
     private val binding by FragmentBinding(FragmentFavoritesBinding::bind)
 
     private var favoritesAdapter: FavoritesAdapter? = null
@@ -21,6 +25,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FavoritesComponent.getFavoriteComponent().inject(this)
         setHasOptionsMenu(true)
     }
 
