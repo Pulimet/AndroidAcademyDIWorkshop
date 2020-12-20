@@ -36,9 +36,9 @@ android {
 
 dependencies {
     // Modules dependencies
-    implementation project(path: ':network')
+    api project(path: ':network')
 
-    // Kotline + Core
+    // Kotlin + Core
     //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
