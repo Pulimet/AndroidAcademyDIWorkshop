@@ -18,11 +18,6 @@ class HomeViewModel : ViewModel() {
         Dependencies.moviesRepo.fetchFreshMovies()
     }
 
-    override fun onCleared() {
-        Dependencies.moviesRepo.onCleared()
-        Log.w("Academy", "HomeViewModel onCleared")
-    }
-
     fun saveClickedItemPosition(position: Int?) {
         savedItemPosition = position ?: 0
     }
@@ -31,4 +26,8 @@ class HomeViewModel : ViewModel() {
         savedItemPosition = position ?: 0
     }
 
+    override fun onCleared() {
+        Dependencies.moviesRepo.onCleared()
+        Log.w("Academy", "HomeViewModel onCleared")
+    }
 }
