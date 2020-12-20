@@ -22,6 +22,7 @@ class MoviesRepo : CoroutineScope {
         Injector.appComponent.inject(this)
     }
 
+    // TODO Step 1 - Move movieDao, movieFavoriteDao, tmdbApiService to constructor
     @Inject
     internal lateinit var movieDao: MovieDao
     @Inject
