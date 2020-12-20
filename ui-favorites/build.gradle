@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt' // For Dagger 2
 }
 
 android {
@@ -41,6 +42,7 @@ dependencies {
     implementation project(path: ':db')
 
     // Kotlin
+    //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // com.google
@@ -61,6 +63,10 @@ dependencies {
 
     // Image loading library
     implementation("io.coil-kt:coil:1.1.0")
+
+    // DI - Dagger 2
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
 
     // Tests
     testImplementation 'junit:junit:4.13.1'
