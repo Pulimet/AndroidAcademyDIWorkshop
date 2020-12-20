@@ -9,6 +9,9 @@ import javax.inject.Singleton
 
 @Module
 class MoviesModule {
+
+    // TODO Step 1 - Add parameters movieDao, movieFavoriteDao, tmdbApiService to getMoviesRepo
+    //  function and pass them to MoviesRepo constructor
     @Provides
     @Singleton
     fun getMoviesRepo() = MoviesRepo()
