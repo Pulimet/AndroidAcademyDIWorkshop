@@ -1,10 +1,11 @@
 package com.academy.di.repo
 
 import android.util.Log
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
-import com.academy.di.di.Dependencies
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -13,10 +14,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-// TODO Step 2 - Add @Named injection of 'dataStoreVotes' and 'dataStoreRating' to constructor and use them in the class
-class SettingsRepo : CoroutineScope {
+class SettingsRepo @Inject constructor(
+    private val dataStoreMinVotes: DataStore<Preferences>,
+    private val dataStoreMinRating: DataStore<Preferences>
+) : CoroutineScope {
     init {
         Log.w("Academy", "SettingsRepo init")
     }
@@ -32,7 +36,7 @@ class SettingsRepo : CoroutineScope {
     }
 
     // Min votes
-    val getMinVotes: Flow<Int> = Dependencies.dataStoreMinVotes.data
+    val getMinVotes: Flow<Int> = dataStoreMinVotes.data
         .catch { exception ->
             // dataStore.data throws an IOException when an error is encountered when reading data
             if (exception is IOException) {
@@ -47,13 +51,13 @@ class SettingsRepo : CoroutineScope {
 
 
     suspend fun saveMinVotes(minVotes: Int) {
-        Dependencies.dataStoreMinVotes.edit { preferences ->
+        dataStoreMinVotes.edit { preferences ->
             preferences[KEY_MIN_VOTES] = minVotes
         }
     }
 
     // Min rating
-    val getMinRating: Flow<Int> = Dependencies.dataStoreMinRating.data
+    val getMinRating: Flow<Int> = dataStoreMinRating.data
         .catch { exception ->
             // dataStore.data throws an IOException when an error is encountered when reading data
             if (exception is IOException) {
@@ -68,7 +72,7 @@ class SettingsRepo : CoroutineScope {
 
 
     suspend fun saveMinRating(minVotes: Int) {
-        Dependencies.dataStoreMinRating.edit { preferences ->
+        dataStoreMinRating.edit { preferences ->
             preferences[KEY_MIN_RATING] = minVotes
         }
     }

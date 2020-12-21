@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.academy.db.model.Movie
 import com.academy.db.model.MovieFavorite
-import com.academy.di.di.Dependencies
 import com.academy.di.repo.MoviesRepo
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch

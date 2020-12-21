@@ -1,12 +1,13 @@
 package com.academy.di.repo
 
 import android.util.Log
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.academy.db.dao.MovieDao
 import com.academy.db.dao.MovieFavoriteDao
 import com.academy.db.model.Movie
 import com.academy.db.model.MovieFavorite
 import com.academy.db.utils.MovieModelConverter
-import com.academy.di.di.Dependencies
 import com.academy.di.di.Injector
 import com.academy.network.services.TmdbApiService
 import kotlinx.coroutines.*
@@ -16,11 +17,12 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-// TODO Step 2 - Add @Named injection of 'dataStoreVotes' and 'dataStoreRating' to constructor and use them in the class
 class MoviesRepo @Inject constructor(
     private val movieDao: MovieDao,
     private val movieFavoriteDao: MovieFavoriteDao,
-    private val tmdbApiService: TmdbApiService
+    private val tmdbApiService: TmdbApiService,
+    private val dataStoreVotes: DataStore<Preferences>,
+    private val dataStoreRating: DataStore<Preferences>
 ) : CoroutineScope {
     init {
         Log.w("Academy", "MoviesRepo init")
@@ -35,11 +37,11 @@ class MoviesRepo @Inject constructor(
     private var tempMinNumOfVotes = 0
     private var tempMinRating = 0
 
-    private fun getTempMinValue() = Dependencies.dataStoreMinVotes.data.map { preferences ->
+    private fun getTempMinValue() = dataStoreVotes.data.map { preferences ->
         preferences[SettingsRepo.KEY_MIN_VOTES] ?: 2
     }
 
-    private fun getTempMinRating() = Dependencies.dataStoreMinRating.data.map { preferences ->
+    private fun getTempMinRating() = dataStoreRating.data.map { preferences ->
         preferences[SettingsRepo.KEY_MIN_RATING] ?: 2
     }
 

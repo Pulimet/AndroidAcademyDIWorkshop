@@ -7,13 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.academy.di.repo.SettingsRepo
 import kotlinx.coroutines.launch
 
-// TODO Step 2 - Add SettingsRepo to constructor and use it in the class
-class SettingsViewModel : ViewModel() {
+class SettingsViewModel(private val settingsRepo: SettingsRepo) : ViewModel() {
     init {
         Log.w("Academy", "SettingsViewModel init")
     }
-
-    private val settingsRepo = SettingsRepo()
 
     // Min votes
     val minVotesLiveData = settingsRepo.getMinVotes.asLiveData()
