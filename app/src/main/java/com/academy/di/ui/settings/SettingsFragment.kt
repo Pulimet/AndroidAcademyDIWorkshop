@@ -21,8 +21,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO Step 3 - use getSettingsComponent function to inject the fragment
-        Injector.appComponent.inject(this)
+        Injector.getSettingsComponent().inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

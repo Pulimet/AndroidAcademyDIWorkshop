@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.academy.di.di.Injector
 import com.academy.di.repo.SettingsRepo
 import kotlinx.coroutines.launch
 
@@ -61,5 +62,6 @@ class SettingsViewModel(private val settingsRepo: SettingsRepo) : ViewModel() {
     override fun onCleared() {
         Log.w("Academy", "SettingsViewModel onCleared")
         settingsRepo.onCleared()
+        Injector.clearSettingsComponent()
     }
 }
