@@ -10,6 +10,8 @@ import javax.inject.Singleton
 
 @Module
 class SettingsModule {
+    // TODO Step 3 - Change scope from @Singleton to  @SettingsScope
+
     @Provides
     @Singleton
     fun getSettingsRepo(
