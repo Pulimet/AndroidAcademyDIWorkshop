@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import com.academy.di.di.Injector
 
+// TODO Step 2 - After finishing other TODOs, remove unused code (instance, companion object)
 class App : Application() {
     init {
         Log.e("Academy", "App created")
