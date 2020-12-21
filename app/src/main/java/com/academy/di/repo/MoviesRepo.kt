@@ -16,19 +16,15 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class MoviesRepo : CoroutineScope {
+class MoviesRepo @Inject constructor(
+    private val movieDao: MovieDao,
+    private val movieFavoriteDao: MovieFavoriteDao,
+    private val tmdbApiService: TmdbApiService
+) : CoroutineScope {
     init {
         Log.w("Academy", "MoviesRepo init")
         Injector.appComponent.inject(this)
     }
-
-    // TODO Step 1 - Move movieDao, movieFavoriteDao, tmdbApiService to constructor
-    @Inject
-    internal lateinit var movieDao: MovieDao
-    @Inject
-    internal lateinit var movieFavoriteDao: MovieFavoriteDao
-    @Inject
-    internal lateinit var tmdbApiService: TmdbApiService
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
         Log.e("Academy", "Coroutine Exception: ${throwable.message}", throwable)
