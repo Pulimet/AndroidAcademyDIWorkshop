@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
+// TODO Step 2 - Add @Named injection of 'dataStoreVotes' and 'dataStoreRating' to constructor and use them in the class
 class SettingsRepo : CoroutineScope {
     init {
         Log.w("Academy", "SettingsRepo init")

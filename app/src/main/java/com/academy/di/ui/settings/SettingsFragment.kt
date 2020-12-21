@@ -10,9 +10,15 @@ import com.academy.di.ui.binding.FragmentBinding
 
 class SettingsFragment : Fragment(R.layout.fragment_settings),
     View.OnClickListener {
+
+    // TODO Step 2 - Create SettingsViewModelFactory (if you don't remember how check HomeViewModelFactory)
+    // TODO Step 2 - Inject SettingsViewModelFactory and use it when getting SettingsViewModel with 'by viewModels'
+
     private val viewModel: SettingsViewModel by viewModels()
 
     private val binding by FragmentBinding(FragmentSettingsBinding::bind)
+
+    // TODO Step 2 - Add onCreate() and inject this fragment [ Injector.appComponent.inject(this) ]
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

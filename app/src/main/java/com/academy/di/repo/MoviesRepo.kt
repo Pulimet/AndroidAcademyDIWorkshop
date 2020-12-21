@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
+// TODO Step 2 - Add @Named injection of 'dataStoreVotes' and 'dataStoreRating' to constructor and use them in the class
 class MoviesRepo @Inject constructor(
     private val movieDao: MovieDao,
     private val movieFavoriteDao: MovieFavoriteDao,
