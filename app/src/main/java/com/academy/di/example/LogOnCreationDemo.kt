@@ -5,16 +5,15 @@ import com.academy.di.di.Injector
 import dagger.Lazy
 import kotlinx.coroutines.*
 import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Provider
 import kotlin.coroutines.CoroutineContext
 
 class LogOnCreationDemo @Inject constructor(
-    @Named("LogSingleton") private val lazySingleton: Lazy<ImLogOnCreation>,
-    @Named("LogSingleton") private val lazySingleton2: Lazy<ImLogOnCreation>,
-    @Named("LogNotSingleton") private val notSingleton: Lazy<ImLogOnCreation>,
-    @Named("LogNotSingleton") private val notSingleton2: Lazy<ImLogOnCreation>,
-    @Named("ProviderExample") private val providerExample: Provider<ImLogOnCreation>
+    private val lazySingleton: Lazy<ImLogOnCreation>,
+    private val lazySingleton2: Lazy<ImLogOnCreation>,
+    private val notSingleton: Lazy<ImLogOnCreation>,
+    private val notSingleton2: Lazy<ImLogOnCreation>,
+    private val providerExample: Provider<ImLogOnCreation>
 ) : CoroutineScope {
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
 

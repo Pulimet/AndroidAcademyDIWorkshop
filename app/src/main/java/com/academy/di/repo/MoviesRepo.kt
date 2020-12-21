@@ -16,15 +16,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
 class MoviesRepo @Inject constructor(
     private val movieDao: MovieDao,
     private val movieFavoriteDao: MovieFavoriteDao,
     private val tmdbApiService: TmdbApiService,
-    @Named("Votes") private val dataStoreVotes: DataStore<Preferences>,
-    @Named("Rating") private val dataStoreRating: DataStore<Preferences>,
+    private val dataStoreVotes: DataStore<Preferences>,
+    private val dataStoreRating: DataStore<Preferences>,
     logOnCreationDemo: LogOnCreationDemo
 ) : CoroutineScope {
 

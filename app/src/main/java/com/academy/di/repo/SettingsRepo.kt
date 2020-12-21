@@ -16,12 +16,11 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
-import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
 class SettingsRepo @Inject constructor(
-    @Named("Votes") private val dataStoreMinVotes: DataStore<Preferences>,
-    @Named("Rating") private val dataStoreMinRating: DataStore<Preferences>
+    private val dataStoreMinVotes: DataStore<Preferences>,
+    private val dataStoreMinRating: DataStore<Preferences>
 ) : CoroutineScope {
     init {
         Log.w("Academy", "SettingsRepo init")
