@@ -23,10 +23,12 @@ class MoviesRepo @Inject constructor(
     private val tmdbApiService: TmdbApiService,
     private val dataStoreVotes: DataStore<Preferences>,
     private val dataStoreRating: DataStore<Preferences>
+    // TODO Step 4 - inject LogOnCreationDemo
 ) : CoroutineScope {
     init {
         Log.w("Academy", "MoviesRepo init")
         Injector.appComponent.inject(this)
+        // TODO Step 4 - Invoke 'play()' on LogOnCreationDemo
     }
 
     private val handler = CoroutineExceptionHandler { _, throwable ->

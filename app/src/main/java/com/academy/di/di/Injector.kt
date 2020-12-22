@@ -20,6 +20,7 @@ object Injector {
             .dbModule(DbModule(appContext))
             .networkModule(NetworkModule())
             .dataStoreModule(DataStoreModule(appContext))
+             // TODO Step 4 - Add ExampleModule
             .build()
     }
 
