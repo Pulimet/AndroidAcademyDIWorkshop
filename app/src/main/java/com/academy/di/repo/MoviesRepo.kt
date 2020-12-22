@@ -9,6 +9,7 @@ import com.academy.db.model.Movie
 import com.academy.db.model.MovieFavorite
 import com.academy.db.utils.MovieModelConverter
 import com.academy.di.di.Injector
+import com.academy.di.example.LogOnCreationDemo
 import com.academy.network.services.TmdbApiService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -22,13 +23,14 @@ class MoviesRepo @Inject constructor(
     private val movieFavoriteDao: MovieFavoriteDao,
     private val tmdbApiService: TmdbApiService,
     private val dataStoreVotes: DataStore<Preferences>,
-    private val dataStoreRating: DataStore<Preferences>
-    // TODO Step 4 - inject LogOnCreationDemo
+    private val dataStoreRating: DataStore<Preferences>,
+    logOnCreationDemo: LogOnCreationDemo
 ) : CoroutineScope {
     init {
         Log.w("Academy", "MoviesRepo init")
         Injector.appComponent.inject(this)
-        // TODO Step 4 - Invoke 'play()' on LogOnCreationDemo
+
+        logOnCreationDemo.play()
     }
 
     private val handler = CoroutineExceptionHandler { _, throwable ->

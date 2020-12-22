@@ -27,12 +27,11 @@ class MoviesModule {
         movieFavoriteDao: MovieFavoriteDao,
         tmdbApiService: TmdbApiService,
         @Named("Votes") dataStoreVotes: DataStore<Preferences>,
-        @Named("Rating") dataStoreRating: DataStore<Preferences>
-    ) = MoviesRepo(movieDao, movieFavoriteDao, tmdbApiService, dataStoreVotes, dataStoreRating)
+        @Named("Rating") dataStoreRating: DataStore<Preferences>,
+        logOnCreationDemo: LogOnCreationDemo
+    ) = MoviesRepo(movieDao, movieFavoriteDao, tmdbApiService, dataStoreVotes, dataStoreRating, logOnCreationDemo)
 
 
-    // TODO Step 4 - There is nothing to do here, added this TODO just to bring your attention fot the function
-    //  that provides a Singleton instance of LogOnCreationDemo
     @Provides
     @Singleton
     fun getLogOnCreationDemo(

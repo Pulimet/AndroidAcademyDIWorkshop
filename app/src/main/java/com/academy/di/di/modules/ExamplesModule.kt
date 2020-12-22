@@ -1,8 +1,23 @@
 package com.academy.di.di.modules
 
-// TODO Step 4 - Make this class a Dagger 2 module that provides  3 @Named instances of "ImLogOnCreation":
-//  LogSingleton (Add @Singleton Scope), LogNotSingleton (No Scope), ProviderExample (No Scope)
-//  Also pass following names to constructors corresponding:  Singleton, Not Singleton, Provider Example
+import com.academy.di.example.ImLogOnCreation
+import dagger.Module
+import dagger.Provides
+import javax.inject.Named
+import javax.inject.Singleton
 
+@Module
 class ExamplesModule {
+    @Provides
+    @Singleton
+    @Named("LogSingleton")
+    fun getSingletonLogOnCreation() = ImLogOnCreation("Singleton")
+
+    @Provides
+    @Named("LogNotSingleton")
+    fun getNotSingletonLogOnCreation() = ImLogOnCreation("Not Singleton")
+
+    @Provides
+    @Named("ProviderExample")
+    fun getProviderExampleLogOnCreation() = ImLogOnCreation("ProviderExample")
 }

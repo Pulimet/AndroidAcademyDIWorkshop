@@ -6,6 +6,7 @@ import com.academy.di.di.components.AppComponent
 import com.academy.di.di.components.DaggerAppComponent
 import com.academy.di.di.components.SettingsComponent
 import com.academy.di.di.modules.DataStoreModule
+import com.academy.di.di.modules.ExamplesModule
 import com.academy.di.di.modules.MoviesModule
 import com.academy.di.di.modules.SettingsModule
 import com.academy.network.di.NetworkModule
@@ -20,7 +21,7 @@ object Injector {
             .dbModule(DbModule(appContext))
             .networkModule(NetworkModule())
             .dataStoreModule(DataStoreModule(appContext))
-             // TODO Step 4 - Add ExampleModule
+            .examplesModule(ExamplesModule())
             .build()
     }
 

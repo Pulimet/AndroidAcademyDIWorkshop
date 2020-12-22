@@ -1,6 +1,7 @@
 package com.academy.di.example
 
 import android.util.Log
+import com.academy.di.di.Injector
 import dagger.Lazy
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -8,7 +9,6 @@ import javax.inject.Provider
 import kotlin.coroutines.CoroutineContext
 
 
-// TODO Step 4 - After finishing all other TODOs please run the app and examine printed logs
 class LogOnCreationDemo @Inject constructor(
     private val lazySingleton: Lazy<ImLogOnCreation>,
     private val lazySingleton2: Lazy<ImLogOnCreation>,
@@ -20,7 +20,7 @@ class LogOnCreationDemo @Inject constructor(
 
     init {
         Log.w("Academy", "LogOnCreationDemo created")
-        // TODO Step 4 - Inject (Injector.appComponent.inject(this))
+        Injector.appComponent.inject(this)
     }
 
     fun play() {
