@@ -13,6 +13,7 @@ import com.academy.network.di.NetworkModule
 import dagger.Component
 import javax.inject.Singleton
 
+// TODO Step 4 - Add module ExamplesModule
 @Component(modules = [DbModule::class, NetworkModule::class, MoviesModule::class,  DataStoreModule::class])
 @Singleton
 interface AppComponent {
@@ -22,4 +23,5 @@ interface AppComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(detailsFragment: DetailsFragment)
     fun inject(settingsRepo: SettingsRepo)
+    // TODO Step 4 - Add inject of LonOnCreationDemo
 }
