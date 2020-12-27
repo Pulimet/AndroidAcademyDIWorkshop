@@ -1,8 +1,5 @@
 package com.academy.di.di
 
-import BaseFavoritesComponent
-import BaseInjector
-import DiHolder
 import android.content.Context
 import com.academy.db.di.DbModule
 import com.academy.di.di.components.AppComponent
@@ -12,14 +9,17 @@ import com.academy.di.di.modules.DataStoreModule
 import com.academy.di.di.modules.ExamplesModule
 import com.academy.di.di.modules.MoviesModule
 import com.academy.di.di.modules.SettingsModule
+import com.academy.navigation.BaseInjector
+import com.academy.navigation.DiHolder
 import com.academy.network.di.NetworkModule
+import com.academy.ui_favorites.di.FavoritesComponent
+import com.academy.ui_favorites.di.FavoritesModule
 
 object Injector : BaseInjector {
     lateinit var appComponent: AppComponent
     private var settingsComponent: SettingsComponent? = null
-    // TODO Step 5 - Add variable for FavoritesComponent
+    private var favoritesComponent: FavoritesComponent? = null
 
-    // TODO Step 5 - Nothing TODO, just note how we are saving a reference for our injector in shared 'navigation' module
     init {
         DiHolder.baseInjector = this
     }
@@ -50,13 +50,17 @@ object Injector : BaseInjector {
     }
 
     // Favorites
-    // TODO Step 5 - Add getFavoritesComponent and clearFavoritesComponent functions
-    // TODO Step 5 - Nothing TODO, just note that we use BaseFavoritesComponent interface from 'navigation' module
-    override fun getFavoritesComponent(): BaseFavoritesComponent {
-        TODO("Not yet implemented")
+    override fun getFavoritesComponent(): FavoritesComponent {
+        if (favoritesComponent == null) {
+            favoritesComponent = appComponent
+                .addFavoritesSubComponent()
+                .favoritesModule(FavoritesModule())
+                .build()
+        }
+        return favoritesComponent as FavoritesComponent
     }
 
     override fun clearFavoritesComponent() {
-        TODO("Not yet implemented")
+        favoritesComponent = null
     }
 }

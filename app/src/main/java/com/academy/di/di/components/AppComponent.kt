@@ -10,6 +10,7 @@ import com.academy.di.repo.SettingsRepo
 import com.academy.di.ui.details.DetailsFragment
 import com.academy.di.ui.home.HomeFragment
 import com.academy.network.di.NetworkModule
+import com.academy.ui_favorites.di.FavoritesComponent
 import dagger.Component
 import javax.inject.Singleton
 
@@ -17,7 +18,7 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
     fun addSettingsSubComponent(): SettingsComponent.Builder
-    // TODO Step 5 - Add a function for adding FavoritesComponent
+    fun addFavoritesSubComponent(): FavoritesComponent.Builder
 
     fun inject(moviesRepo: MoviesRepo)
     fun inject(homeFragment: HomeFragment)

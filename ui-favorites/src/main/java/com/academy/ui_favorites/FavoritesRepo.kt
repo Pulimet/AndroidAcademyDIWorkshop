@@ -1,15 +1,15 @@
 package com.academy.ui_favorites
 
 import android.util.Log
-import com.academy.ui_favorites.di.Dependencies
+import com.academy.db.dao.MovieFavoriteDao
+import javax.inject.Inject
 
-// TODO Step 5 -inject MovieFavoriteDao reference as a constructor argument
-class FavoritesRepo {
+class FavoritesRepo  @Inject constructor(private val movieFavoriteDao: MovieFavoriteDao) {
     init {
         Log.w("Academy", "FavoritesRepo init")
     }
 
-    fun getMovies() = Dependencies.getMovieFavoriteDao().getMovies()
+    fun getMovies() = movieFavoriteDao.getMovies()
 
     fun onCleared() {
         Log.w("Academy", "FavoritesRepo onCleared")

@@ -8,11 +8,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.academy.ui_favorites.binding.FragmentBinding
 import com.academy.ui_favorites.databinding.FragmentFavoritesBinding
-import com.academy.ui_favorites.di.Dependencies
+import com.academy.ui_favorites.di.FavoritesComponent
 import com.academy.ui_favorites.recycler.FavoritesAdapter
 import javax.inject.Inject
 
-// TODO Step 5 - Nothing TODO, just note it was modified
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     @Inject
@@ -26,7 +25,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        FavoritesComponent.getFavoriteComponent().inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

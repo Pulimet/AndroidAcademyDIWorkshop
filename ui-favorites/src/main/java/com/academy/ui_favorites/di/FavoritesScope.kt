@@ -1,4 +1,7 @@
 package com.academy.ui_favorites.di
 
-// TODO Step 5 - Make this class a Scope
-class FavoritesScope
+import javax.inject.Scope
+
+@Scope
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+annotation class FavoritesScope
