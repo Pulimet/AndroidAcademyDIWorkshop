@@ -3,6 +3,7 @@ package com.academy.ui_favorites
 import android.util.Log
 import com.academy.ui_favorites.di.Dependencies
 
+// TODO Step 5 -inject MovieFavoriteDao reference as a constructor argument
 class FavoritesRepo {
     init {
         Log.w("Academy", "FavoritesRepo init")

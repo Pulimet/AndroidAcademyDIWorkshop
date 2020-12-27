@@ -17,6 +17,7 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
     fun addSettingsSubComponent(): SettingsComponent.Builder
+    // TODO Step 5 - Add a function for adding FavoritesComponent
 
     fun inject(moviesRepo: MoviesRepo)
     fun inject(homeFragment: HomeFragment)
