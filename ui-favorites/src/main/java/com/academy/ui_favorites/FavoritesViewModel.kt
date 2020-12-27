@@ -5,15 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.academy.ui_favorites.di.Dependencies
 
-class FavoritesViewModel : ViewModel() {
+// TODO Step 5 - Nothing TODO, just note it was modified
+class FavoritesViewModel(private val favoritesRepo: FavoritesRepo) : ViewModel() {
     init {
         Log.w("Academy", "FavoritesViewModel init")
     }
 
-    fun getMovies() = Dependencies.favoritesRepo.getMovies().asLiveData()
+    fun getMovies() = favoritesRepo.getMovies().asLiveData()
 
     override fun onCleared() {
-        Dependencies.favoritesRepo.onCleared()
+        favoritesRepo.onCleared()
         Log.w("Academy", "FavoritesViewModel onCleared")
     }
 }
