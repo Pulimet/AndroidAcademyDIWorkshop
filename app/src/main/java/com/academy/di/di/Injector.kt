@@ -9,19 +9,19 @@ import com.academy.di.di.modules.DataStoreModule
 import com.academy.di.di.modules.ExamplesModule
 import com.academy.di.di.modules.MoviesModule
 import com.academy.di.di.modules.SettingsModule
-import com.academy.navigation.BaseInjector
-import com.academy.navigation.DiHolder
 import com.academy.network.di.NetworkModule
+import com.academy.ui_favorites.di.DiHolder
 import com.academy.ui_favorites.di.FavoritesComponent
+import com.academy.ui_favorites.di.FavoritesInjector
 import com.academy.ui_favorites.di.FavoritesModule
 
-object Injector : BaseInjector {
+object Injector : FavoritesInjector {
     lateinit var appComponent: AppComponent
     private var settingsComponent: SettingsComponent? = null
     private var favoritesComponent: FavoritesComponent? = null
 
     init {
-        DiHolder.baseInjector = this
+        DiHolder.favoritesInjector = this
     }
 
     fun buildDaggerAppComponent(appContext: Context) {

@@ -1,7 +1,5 @@
 package com.academy.ui_favorites.di
 
-import com.academy.navigation.BaseFavoritesComponent
-import com.academy.navigation.DiHolder
 import com.academy.ui_favorites.FavoritesFragment
 import com.academy.ui_favorites.FavoritesRepo
 import dagger.Subcomponent
@@ -9,7 +7,7 @@ import dagger.Subcomponent
 
 @Subcomponent(modules = [FavoritesModule::class])
 @FavoritesScope
-interface FavoritesComponent : BaseFavoritesComponent {
+interface FavoritesComponent {
 
     @Subcomponent.Builder
     interface Builder {
@@ -20,8 +18,4 @@ interface FavoritesComponent : BaseFavoritesComponent {
     fun inject(favoritesFragment: FavoritesFragment)
     fun inject(favoritesRepo: FavoritesRepo)
 
-    companion object {
-        fun getFavoriteComponent() =
-            DiHolder.baseInjector.getFavoritesComponent() as FavoritesComponent
-    }
 }
