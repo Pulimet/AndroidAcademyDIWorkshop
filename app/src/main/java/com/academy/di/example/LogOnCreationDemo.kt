@@ -20,7 +20,6 @@ class LogOnCreationDemo @Inject constructor(
 
     init {
         Log.w("Academy", "LogOnCreationDemo created")
-        Injector.appComponent.inject(this)
     }
 
     fun play() {

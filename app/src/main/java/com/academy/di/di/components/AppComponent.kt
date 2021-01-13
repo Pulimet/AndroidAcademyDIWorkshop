@@ -22,5 +22,4 @@ interface AppComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(detailsFragment: DetailsFragment)
     fun inject(settingsRepo: SettingsRepo)
-    fun inject(logOnCreationDemo: LogOnCreationDemo)
 }

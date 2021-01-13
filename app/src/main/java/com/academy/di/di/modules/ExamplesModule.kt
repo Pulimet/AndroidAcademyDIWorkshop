@@ -16,8 +16,4 @@ class ExamplesModule {
     @Provides
     @Named("LogNotSingleton")
     fun getNotSingletonLogOnCreation() = ImLogOnCreation("Not Singleton")
-
-    @Provides
-    @Named("ProviderExample")
-    fun getProviderExampleLogOnCreation() = ImLogOnCreation("ProviderExample")
 }
