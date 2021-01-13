@@ -9,19 +9,19 @@ import com.academy.di.di.modules.DataStoreModule
 import com.academy.di.di.modules.ExamplesModule
 import com.academy.di.di.modules.MoviesModule
 import com.academy.di.di.modules.SettingsModule
-import com.academy.navigation.BaseFavoritesComponent
-import com.academy.navigation.BaseInjector
-import com.academy.navigation.DiHolder
 import com.academy.network.di.NetworkModule
+import com.academy.ui_favorites.di.DiHolder
+import com.academy.ui_favorites.di.FavoritesComponent
+import com.academy.ui_favorites.di.FavoritesInjector
 
-object Injector : BaseInjector {
+object Injector : FavoritesInjector {
     lateinit var appComponent: AppComponent
     private var settingsComponent: SettingsComponent? = null
     // TODO Step 5 - Add variable for FavoritesComponent
 
     // TODO Step 5 - Nothing TODO, just note how we are saving a reference for our injector in shared 'navigation' module
     init {
-        DiHolder.baseInjector = this
+        DiHolder.favoritesInjector = this
     }
 
     fun buildDaggerAppComponent(appContext: Context) {
@@ -51,8 +51,7 @@ object Injector : BaseInjector {
 
     // Favorites
     // TODO Step 5 - Add getFavoritesComponent and clearFavoritesComponent functions
-    // TODO Step 5 - Nothing TODO, just note that we use BaseFavoritesComponent interface from 'navigation' module
-    override fun getFavoritesComponent(): BaseFavoritesComponent {
+    override fun getFavoritesComponent(): FavoritesComponent {
         TODO("Not yet implemented")
     }
 
