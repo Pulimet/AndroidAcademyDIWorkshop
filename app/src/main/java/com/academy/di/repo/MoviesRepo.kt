@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class MoviesRepo @Inject constructor(
+class MoviesRepo constructor(
     private val movieDao: MovieDao,
     private val movieFavoriteDao: MovieFavoriteDao,
     private val tmdbApiService: TmdbApiService,
