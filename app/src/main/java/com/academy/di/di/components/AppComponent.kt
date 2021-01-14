@@ -16,5 +16,5 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(detailsFragment: DetailsFragment)
-    // TODO Step 2 - Add inject function for SettingsRepo and SettingsFragment
+    // TODO Step 2 - Add inject function SettingsFragment
 }

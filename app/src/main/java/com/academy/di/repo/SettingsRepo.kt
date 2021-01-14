@@ -32,6 +32,7 @@ class SettingsRepo : CoroutineScope {
     }
 
     // Min votes
+    //TODO: Change dependencies from injected DataStore Votes
     val getMinVotes: Flow<Int> = Dependencies.dataStoreMinVotes.data
         .catch { exception ->
             // dataStore.data throws an IOException when an error is encountered when reading data
@@ -53,6 +54,7 @@ class SettingsRepo : CoroutineScope {
     }
 
     // Min rating
+    //TODO: Change dependencies from injected DataStore Rating
     val getMinRating: Flow<Int> = Dependencies.dataStoreMinRating.data
         .catch { exception ->
             // dataStore.data throws an IOException when an error is encountered when reading data
