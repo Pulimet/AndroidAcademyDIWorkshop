@@ -16,6 +16,4 @@ interface FavoritesComponent {
     }
 
     fun inject(favoritesFragment: FavoritesFragment)
-    fun inject(favoritesRepo: FavoritesRepo)
-
 }
