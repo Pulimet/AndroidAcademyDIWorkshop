@@ -17,7 +17,7 @@ import java.io.IOException
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class SettingsRepo constructor(
+class SettingsRepo(
     private val dataStoreMinVotes: DataStore<Preferences>,
     private val dataStoreMinRating: DataStore<Preferences>
 ) : CoroutineScope {

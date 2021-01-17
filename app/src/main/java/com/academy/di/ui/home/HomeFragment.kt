@@ -25,7 +25,7 @@ import javax.inject.Inject
 class HomeFragment : Fragment(R.layout.fragment_home), OnMovieClickListener {
     @Inject
     internal lateinit var homeViewModelFactory: HomeViewModelFactory
-    private val viewModel: HomeViewModel by viewModels{homeViewModelFactory}
+    private val viewModel: HomeViewModel by viewModels{ homeViewModelFactory }
 
     private val navViewModel: NavigationViewModel by activityViewModels()
 
