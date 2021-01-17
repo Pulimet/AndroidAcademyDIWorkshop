@@ -3,9 +3,10 @@ package com.academy.di.repo
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
-import com.academy.di.di.Dependencies
+import com.academy.di.di.Injector
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,7 +19,7 @@ import javax.inject.Inject
 import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
-class SettingsRepo : CoroutineScope {
+class SettingsRepo @Inject constructor() : CoroutineScope {
     @Inject
     @Named("Votes")
     lateinit var dataStoreVotes: DataStore<Preferences>
@@ -29,6 +30,7 @@ class SettingsRepo : CoroutineScope {
 
     init {
         Log.w("Academy", "SettingsRepo init")
+        Injector.appComponent.inject(this)
     }
 
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
@@ -57,7 +59,7 @@ class SettingsRepo : CoroutineScope {
 
 
     suspend fun saveMinVotes(minVotes: Int) {
-        Dependencies.dataStoreMinVotes.edit { preferences ->
+        dataStoreVotes.edit { preferences ->
             preferences[KEY_MIN_VOTES] = minVotes
         }
     }
@@ -78,7 +80,7 @@ class SettingsRepo : CoroutineScope {
 
 
     suspend fun saveMinRating(minVotes: Int) {
-        Dependencies.dataStoreMinRating.edit { preferences ->
+        dataStoreRating.edit { preferences ->
             preferences[KEY_MIN_RATING] = minVotes
         }
     }

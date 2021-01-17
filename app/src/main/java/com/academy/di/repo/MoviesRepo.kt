@@ -10,7 +10,6 @@ import com.academy.di.di.Dependencies
 import com.academy.network.services.TmdbApiService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
