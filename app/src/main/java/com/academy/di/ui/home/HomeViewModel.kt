@@ -3,7 +3,6 @@ package com.academy.di.ui.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.academy.di.di.Dependencies
 import com.academy.di.repo.MoviesRepo
 
 class HomeViewModel(private val moviesRepo: MoviesRepo) : ViewModel() {

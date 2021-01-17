@@ -7,7 +7,6 @@ import com.academy.db.model.Movie
 import com.academy.db.model.MovieFavorite
 import com.academy.db.utils.MovieModelConverter
 import com.academy.di.di.Dependencies
-import com.academy.di.di.Injector
 import com.academy.network.services.TmdbApiService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -16,8 +15,9 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-// TODO Step 2 - Add injection of 'dataStoreVotes' and 'dataStoreRating' to constructor and use them in the class
-class MoviesRepo constructor(
+/* TODO Step 5 - Add injection of 'dataStoreVotes' and 'dataStoreRating' to constructor and use them in the class
+    Remember use @Named qualifier*/
+class MoviesRepo @Inject constructor(
     private val movieDao: MovieDao,
     private val movieFavoriteDao: MovieFavoriteDao,
     private val tmdbApiService: TmdbApiService
@@ -34,10 +34,12 @@ class MoviesRepo constructor(
     private var tempMinNumOfVotes = 0
     private var tempMinRating = 0
 
+    // TODO Step 6 - Change dataStoreMinVotes for dataStore provided in construction
     private fun getTempMinValue() = Dependencies.dataStoreMinVotes.data.map { preferences ->
         preferences[SettingsRepo.KEY_MIN_VOTES] ?: 2
     }
 
+    // TODO Step 7 - Change dataStoreMinVotes for dataStore provided in construction
     private fun getTempMinRating() = Dependencies.dataStoreMinRating.data.map { preferences ->
         preferences[SettingsRepo.KEY_MIN_RATING] ?: 2
     }

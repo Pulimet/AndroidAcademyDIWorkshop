@@ -6,18 +6,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.academy.di.R
 import com.academy.di.databinding.FragmentSettingsBinding
+import com.academy.di.di.Injector
 import com.academy.di.ui.binding.FragmentBinding
 
 class SettingsFragment : Fragment(R.layout.fragment_settings),
     View.OnClickListener {
 
-    // TODO Step 2 - Inject SettingsViewModelFactory and use it when getting SettingsViewModel with 'by viewModels'
+    // TODO Step 8 - Inject SettingsViewModelFactory and use it when getting SettingsViewModel with 'by viewModels'
 
     private val viewModel: SettingsViewModel by viewModels()
 
     private val binding by FragmentBinding(FragmentSettingsBinding::bind)
 
-    // TODO Step 2 - Add onCreate() and inject this fragment [ Injector.appComponent.inject(this) ]
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Injector.appComponent.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

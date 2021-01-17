@@ -1,7 +1,8 @@
 package com.academy.di.repo
 
 import android.util.Log
-import androidx.datastore.preferences.core.edit
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
 import com.academy.di.di.Dependencies
@@ -13,10 +14,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
-// TODO Step 2 - Add injection of 'dataStoreVotes' and 'dataStoreRating' to constructor and use them in the class
 class SettingsRepo : CoroutineScope {
+    @Inject
+    @Named("Votes")
+    lateinit var dataStoreVotes: DataStore<Preferences>
+
+    @Inject
+    @Named("Rating")
+    lateinit var dataStoreRating: DataStore<Preferences>
+
     init {
         Log.w("Academy", "SettingsRepo init")
     }
@@ -32,8 +42,7 @@ class SettingsRepo : CoroutineScope {
     }
 
     // Min votes
-    //TODO: Change dependencies from injected DataStore Votes
-    val getMinVotes: Flow<Int> = Dependencies.dataStoreMinVotes.data
+    val getMinVotes: Flow<Int> = dataStoreVotes.data
         .catch { exception ->
             // dataStore.data throws an IOException when an error is encountered when reading data
             if (exception is IOException) {
@@ -54,8 +63,7 @@ class SettingsRepo : CoroutineScope {
     }
 
     // Min rating
-    //TODO: Change dependencies from injected DataStore Rating
-    val getMinRating: Flow<Int> = Dependencies.dataStoreMinRating.data
+    val getMinRating: Flow<Int> = dataStoreRating.data
         .catch { exception ->
             // dataStore.data throws an IOException when an error is encountered when reading data
             if (exception is IOException) {

@@ -16,7 +16,6 @@ object Injector {
             .dbModule(DbModule(appContext))
             .networkModule(NetworkModule())
             // TODO Step 2 - Add dataStoreModule and pass a context to its constructor
-            // TODO Step 2 - Add settingsModule
             .build()
     }
 }
