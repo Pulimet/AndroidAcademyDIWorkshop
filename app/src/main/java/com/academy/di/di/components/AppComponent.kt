@@ -12,6 +12,7 @@ import javax.inject.Singleton
 @Component(modules = [DbModule::class, NetworkModule::class, MoviesModule::class])
 @Singleton
 interface AppComponent {
+    // TODO Step 4 - Remove inject MoviesRepo
     fun inject(moviesRepo: MoviesRepo)
     fun inject(homeFragment: HomeFragment)
     fun inject(detailsFragment: DetailsFragment)

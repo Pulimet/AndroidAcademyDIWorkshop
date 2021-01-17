@@ -19,6 +19,7 @@ import kotlin.coroutines.CoroutineContext
 class MoviesRepo : CoroutineScope {
     init {
         Log.w("Academy", "MoviesRepo init")
+        //TODO Step 2- Remove inject call and remove function from AppComponents
         Injector.appComponent.inject(this)
     }
 
