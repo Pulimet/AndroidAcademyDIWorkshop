@@ -12,7 +12,7 @@ import com.academy.network.di.NetworkModule
 object Injector {
     lateinit var appComponent: AppComponent
 
-    // TODO Step 3 - Create a nullable variable for storing reference of SettingsComponent
+    // TODO Step 1 - Create a nullable variable for storing reference of SettingsComponent
 
     fun buildDaggerAppComponent(appContext: Context) {
         appComponent = DaggerAppComponent.builder()
@@ -20,12 +20,12 @@ object Injector {
             .dbModule(DbModule(appContext))
             .networkModule(NetworkModule())
             .dataStoreModule(DataStoreModule(appContext))
-            // TODO Step 3 - Remove settingsModule function call
+            // TODO Step 4 - Remove settingsModule function call
             .settingsModule(SettingsModule())
             .build()
     }
 
-    // TODO Step 3 - Add a function that when settingsComponent variable is null will build it
+    // TODO Step 2 - Add a function that when settingsComponent variable is null will build it
     //  by using addSettingsSubComponent function from AppComponent and do not forget to add a settingsModule.
     fun getSettingsComponent()/*: SettingsComponent*/ {
 

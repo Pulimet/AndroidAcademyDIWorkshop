@@ -61,6 +61,6 @@ class SettingsViewModel(private val settingsRepo: SettingsRepo) : ViewModel() {
     override fun onCleared() {
         Log.w("Academy", "SettingsViewModel onCleared")
         settingsRepo.onCleared()
-        // TODO Step 3 - Clear Settings Component
+        // TODO Step 11 - Clear Settings Component
     }
 }
