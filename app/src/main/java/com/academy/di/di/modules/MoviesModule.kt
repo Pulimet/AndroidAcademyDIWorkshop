@@ -36,16 +36,10 @@ class MoviesModule {
     @Singleton
     fun getLogOnCreationDemo(
         @Named("LogSingleton") imLogOnCreationSingleton: Lazy<ImLogOnCreation>,
-        @Named("LogSingleton") imLogOnCreationSingleton2: Lazy<ImLogOnCreation>,
         @Named("LogNotSingleton") imLogOnCreationNotSingleton: Lazy<ImLogOnCreation>,
-        @Named("LogNotSingleton") imLogOnCreationNotSingleton2: Lazy<ImLogOnCreation>,
-        @Named("ProviderExample") imLogOnCreationProviderExample: Provider<ImLogOnCreation>,
     ) = LogOnCreationDemo(
         imLogOnCreationSingleton,
-        imLogOnCreationSingleton2,
         imLogOnCreationNotSingleton,
-        imLogOnCreationNotSingleton2,
-        imLogOnCreationProviderExample
     )
 
     @Provides

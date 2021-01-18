@@ -18,8 +18,6 @@ import javax.inject.Singleton
 interface AppComponent {
     fun addSettingsSubComponent(): SettingsComponent.Builder
 
-    fun inject(moviesRepo: MoviesRepo)
     fun inject(homeFragment: HomeFragment)
     fun inject(detailsFragment: DetailsFragment)
-    fun inject(settingsRepo: SettingsRepo)
 }
