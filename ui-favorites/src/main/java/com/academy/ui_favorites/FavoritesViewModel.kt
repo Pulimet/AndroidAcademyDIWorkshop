@@ -14,7 +14,7 @@ class FavoritesViewModel(private val favoritesRepo: FavoritesRepo) : ViewModel()
 
     override fun onCleared() {
         favoritesRepo.onCleared()
-        // TODO Step 5 - Nothing TODO, just note it was modified and FavoritesComponent cleared
+        // TODO: Nothing TODO, just note it was modified and FavoritesComponent cleared
         DiHolder.favoritesInjector.clearFavoritesComponent()
         Log.w("Academy", "FavoritesViewModel onCleared")
     }

@@ -17,9 +17,9 @@ import com.academy.ui_favorites.di.FavoritesInjector
 object Injector : FavoritesInjector {
     lateinit var appComponent: AppComponent
     private var settingsComponent: SettingsComponent? = null
-    // TODO Step 5 - Add variable for FavoritesComponent
+    // TODO Step 1 - Add variable for FavoritesComponent
 
-    // TODO Step 5 - Nothing TODO, just note how we are saving a reference for our injector in shared 'navigation' module
+    // TODO: Nothing TODO, just note how we are saving a reference for our injector in shared 'navigation' module
     init {
         DiHolder.favoritesInjector = this
     }
@@ -50,7 +50,7 @@ object Injector : FavoritesInjector {
     }
 
     // Favorites
-    // TODO Step 5 - Add getFavoritesComponent and clearFavoritesComponent functions
+    // TODO Step 2 - Add getFavoritesComponent and clearFavoritesComponent functions
     override fun getFavoritesComponent(): FavoritesComponent {
         TODO("Not yet implemented")
     }

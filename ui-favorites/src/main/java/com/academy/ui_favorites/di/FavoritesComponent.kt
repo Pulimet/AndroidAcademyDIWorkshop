@@ -1,7 +1,7 @@
 package com.academy.ui_favorites.di
 
-// TODO Step 5 - Make this interface a Dagger 2 @SubComponent with  @SubComponent.Builder
-// TODO Step 5 - Allow injecting for FavoritesFragment and FavoritesRepo
+// TODO Step 4 - Make this interface a Dagger 2 @SubComponent with  @SubComponent.Builder
+//  Allow injecting for FavoritesFragment
 interface FavoritesComponent {
 
 

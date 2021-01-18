@@ -8,7 +8,6 @@ import com.academy.db.dao.MovieFavoriteDao
 import com.academy.db.model.Movie
 import com.academy.db.model.MovieFavorite
 import com.academy.db.utils.MovieModelConverter
-import com.academy.di.di.Injector
 import com.academy.di.example.LogOnCreationDemo
 import com.academy.network.services.TmdbApiService
 import kotlinx.coroutines.*
@@ -28,7 +27,6 @@ class MoviesRepo @Inject constructor(
 ) : CoroutineScope {
     init {
         Log.w("Academy", "MoviesRepo init")
-        Injector.appComponent.inject(this)
 
         logOnCreationDemo.play()
     }
