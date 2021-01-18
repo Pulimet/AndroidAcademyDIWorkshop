@@ -28,7 +28,6 @@ class MoviesRepo @Inject constructor(
 ) : CoroutineScope {
     init {
         Log.w("Academy", "MoviesRepo init")
-        Injector.appComponent.inject(this)
 
         logOnCreationDemo.play()
     }

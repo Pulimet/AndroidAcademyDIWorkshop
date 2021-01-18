@@ -20,9 +20,7 @@ interface AppComponent {
     fun addSettingsSubComponent(): SettingsComponent.Builder
     fun addFavoritesSubComponent(): FavoritesComponent.Builder
 
-    fun inject(moviesRepo: MoviesRepo)
     fun inject(homeFragment: HomeFragment)
     fun inject(detailsFragment: DetailsFragment)
-    fun inject(settingsRepo: SettingsRepo)
     fun inject(logOnCreationDemo: LogOnCreationDemo)
 }
