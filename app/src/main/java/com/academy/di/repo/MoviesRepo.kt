@@ -26,7 +26,6 @@ class MoviesRepo @Inject constructor(
 ) : CoroutineScope {
     init {
         Log.w("Academy", "MoviesRepo init")
-        Injector.appComponent.inject(this)
     }
 
     private val handler = CoroutineExceptionHandler { _, throwable ->
