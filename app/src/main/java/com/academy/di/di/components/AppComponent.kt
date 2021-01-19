@@ -13,7 +13,7 @@ import com.academy.network.di.NetworkModule
 import dagger.Component
 import javax.inject.Singleton
 
-// TODO Step 5 - Remove SettingsModule
+// TODO Step 5 - Remove SettingsModule from app component tree
 @Component(modules = [DbModule::class, NetworkModule::class, MoviesModule::class,  DataStoreModule::class, SettingsModule::class])
 @Singleton
 interface AppComponent {
