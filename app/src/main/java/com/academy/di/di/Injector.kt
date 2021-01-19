@@ -50,12 +50,10 @@ object Injector : FavoritesInjector {
     }
 
     // Favorites
-    // TODO Step 2 - Add getFavoritesComponent and clearFavoritesComponent functions
+    // TODO Step 2 - Add getFavoritesComponent and clearFavoritesComponent functions and their implementation
     override fun getFavoritesComponent(): FavoritesComponent {
-        TODO("Not yet implemented")
     }
 
     override fun clearFavoritesComponent() {
-        TODO("Not yet implemented")
     }
 }
