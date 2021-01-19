@@ -9,12 +9,12 @@ import com.academy.network.di.NetworkModule
 import dagger.Component
 import javax.inject.Singleton
 
-// TODO Step 3 - Add DataStoreModule::class to the list of modules
+// TODO Step 2 - Add DataStoreModule::class to the list of modules
 @Component(modules = [DbModule::class, NetworkModule::class, MoviesModule::class])
 @Singleton
 interface AppComponent {
     fun inject(homeFragment: HomeFragment)
     fun inject(detailsFragment: DetailsFragment)
     fun inject(settingsRepo: SettingsRepo)
-    // TODO Step 4 - Add inject function SettingsFragment
+    // TODO Step 3 - Add inject function SettingsFragment
 }

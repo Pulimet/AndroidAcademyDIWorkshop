@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.academy.di.repo.SettingsRepo
 import kotlinx.coroutines.launch
 
-// TODO Step 10 - Add SettingsRepo to constructor and use it in the class
+// TODO Step 10 - Add SettingsRepo to constructor and use it in the class without injection
 class SettingsViewModel : ViewModel() {
     init {
         Log.w("Academy", "SettingsViewModel init")
