@@ -28,7 +28,7 @@ class MoviesModule {
         tmdbApiService: TmdbApiService,
         @Named("Votes") dataStoreVotes: DataStore<Preferences>,
         @Named("Rating") dataStoreRating: DataStore<Preferences>
-        // TODO Step 3 - Do not forget to add LogOnCreationDemo here and pass it into the constructor of MoviesRepo
+        // TODO Step 3 - Add LogOnCreationDemo here and pass it into the constructor of MoviesRepo
     ) = MoviesRepo(movieDao, movieFavoriteDao, tmdbApiService, dataStoreVotes, dataStoreRating)
 
 
