@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.coroutines.CoroutineContext
 
-class LogOnCreationDemo @Inject constructor(
+class LogOnCreationDemo constructor(
     private val lazySingleton: Lazy<ImLogOnCreation>,
     private val lazySingleton2: Lazy<ImLogOnCreation>,
     private val notSingleton: Lazy<ImLogOnCreation>,
@@ -19,7 +19,6 @@ class LogOnCreationDemo @Inject constructor(
 
     init {
         Log.w("Academy", "LogOnCreationDemo created")
-        Injector.appComponent.inject(this)
     }
 
     fun play() {

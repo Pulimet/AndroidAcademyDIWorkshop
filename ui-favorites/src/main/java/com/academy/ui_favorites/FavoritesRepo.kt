@@ -5,10 +5,9 @@ import com.academy.db.dao.MovieFavoriteDao
 import com.academy.ui_favorites.di.FavoritesComponent
 import javax.inject.Inject
 
-class FavoritesRepo  @Inject constructor(private val movieFavoriteDao: MovieFavoriteDao) {
+class FavoritesRepo constructor(private val movieFavoriteDao: MovieFavoriteDao) {
     init {
         Log.w("Academy", "FavoritesRepo init")
-        FavoritesComponent.getFavoriteComponent().inject(this)
     }
 
     fun getMovies() = movieFavoriteDao.getMovies()

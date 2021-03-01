@@ -17,7 +17,6 @@ interface FavoritesComponent : BaseFavoritesComponent {
     }
 
     fun inject(favoritesFragment: FavoritesFragment)
-    fun inject(favoritesRepo: FavoritesRepo)
 
     companion object {
         fun getFavoriteComponent() =
